@@ -30,18 +30,14 @@ public class DrivetrainTest extends OpMode {
         leftBack = hardwareMap.dcMotor.get(Constants.Drivetrain.LB);
         rightFront = hardwareMap.dcMotor.get(Constants.Drivetrain.RF);
         rightBack = hardwareMap.dcMotor.get(Constants.Drivetrain.RB);
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
     }
 
     @Override
     public void loop() {
-        double FrontLeftVal =  gamepad1.left_stick_y - (gamepad1.left_stick_x)  + -gamepad1.right_stick_x;
-        double FrontRightVal =  gamepad1.left_stick_y  + (gamepad1.left_stick_x) - -gamepad1.right_stick_x;
-        double BackLeftVal = gamepad1.left_stick_y  + (gamepad1.left_stick_x)  + -gamepad1.right_stick_x;
-        double BackRightVal = gamepad1.left_stick_y - (gamepad1.left_stick_x) - -gamepad1.right_stick_x;
+        double FrontLeftVal =  gamepad1.left_stick_y - (gamepad1.left_stick_x)  + gamepad1.right_stick_x;
+        double FrontRightVal =  gamepad1.left_stick_y  + (gamepad1.left_stick_x) - gamepad1.right_stick_x;
+        double BackLeftVal = gamepad1.left_stick_y  + (gamepad1.left_stick_x)  + gamepad1.right_stick_x;
+        double BackRightVal = gamepad1.left_stick_y - (gamepad1.left_stick_x) - gamepad1.right_stick_x;
 
         //Move range to between 0 and +1, if not already
         double[] wheelPowers = {FrontRightVal, FrontLeftVal, BackLeftVal, BackRightVal};
@@ -54,8 +50,8 @@ public class DrivetrainTest extends OpMode {
             BackRightVal /= wheelPowers[3];
         }
         leftFront.setPower(FrontLeftVal);
-        leftBack.setPower(FrontRightVal);
-        rightFront.setPower(BackLeftVal);
+        leftBack.setPower(BackLeftVal);
+        rightFront.setPower(FrontRightVal);
         rightBack.setPower(BackRightVal);
     }
 }
