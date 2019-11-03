@@ -213,4 +213,20 @@ public class Drivetrain extends Subsystem {
                 }
         }
     }
+
+    public DcMotor getLeftFront() {
+        return leftFront;
+    }
+
+    public DcMotor getLeftBack() {
+        return leftBack;
+    }
+
+    public DcMotor getRightFront() {
+        return rightFront;
+    }
+
+    public DcMotor getRightBack() {
+        return rightBack;
+    }
 }
