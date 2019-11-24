@@ -27,46 +27,20 @@ public class Constants {
         public static final String RB = "backright";
         public static final String[] motors = {LF, LB, RF, RB};
     }
-    public class Elevator{
-        public static final String ELEVATOR = "elevator";
-        public static final String DUMP = "epivot";
-        public static final double HIGH_POWER = 1;
-        public static final double LOW_POWER = 0.25;
-        public static final double PID_THRESHOLD = 10;
-        public static final int UP_POSITION = 1000; // TODO: check value
-        public static final int DOWN_POSITION = 0; // TODO: check value
-        public static final double DUMP_CLOSED = 0.50; // TODO: check value
-        public static final double DUMP_OPEN = 0.65; // TODO: check value
+
+    public class FourBar{
+        public static final String BS = "bottomServo";
+        public static final String TS = "topServo";
+
     }
-    public class Climber{
-        public static final String EL = "climber";
-        public static final String PL="pawl";
-        public static final double PAWL_IN=0.26;
-        public static final double PAWL_OUT=0.45;
-        public static final double HOOK_OPEN=0.25;
-        public static final double HOOK_CLOSED=0.74;
-        public static final int UP = 21000;
-        public static final int CLIMBED=10838;
-        public static final int DOWN = 0;
-        public static final int POSITION_UP = 1558;
-        public static final int POSITION_DOWN = 0;
-    }
+
     public class Intake{
-        public static final String PI = "ipivot";
-        public static final String RO = "roller";
-        public static final String SL = "slider";
-        public static final double HIGH_POWER = 1;
-        public static final double LOW_POWER = -1;
-        public static final int SlIDER_IN = 200; // TODO: check value
-        public static final int SLIDER_OUT = 1000; // TODO: check value
-        public static final int SLIDER_OFF = 1500; // TODO: check value
-        public static final double ROLLER_IN = .5; // TODO: check value
-        public static final double ROLLER_OUT = .5; // TODO: check value
-        public static final double ROLLER_OFF = .5; // TODO: check value
-        public static final double PIVOT_UP = .5; // TODO: check value
-        public static final double PIVOT_DOWN = .5; // TODO: check value
-        public static final double PIVOT_OFF = .5; // TODO: check value
+        public static final String LS = "leftServo";
+        public static final String RS = "rightServo";
+        public static final String LM = "leftMotor";
+        public static final String RM = "rightMotor";
     }
+
     public class MotionTracker{
         public static final String FB = Drivetrain.RB;
         public static final String LR = "frontleft";

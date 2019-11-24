@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.tests.drivetrain;
 
+import com.acmerobotics.roadrunner.drive.MecanumDrive;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
@@ -49,6 +50,7 @@ public class DrivetrainTest extends OpMode {
         mecaDrive.getDrive().getLeftBack().setDirection(DcMotor.Direction.FORWARD);
         mecaDrive.getDrive().getRightFront().setDirection(DcMotor.Direction.REVERSE);
         mecaDrive.getDrive().getRightBack().setDirection(DcMotor.Direction.REVERSE);
+        mecaDrive.setLocalizer((new MecanumDrive.MecanumLocalizer(mecaDrive,true)));
         //x = 0;
         //y = 0;
     }
@@ -80,8 +82,8 @@ public class DrivetrainTest extends OpMode {
 
         mecaDrive.setMotorPowers(FrontLeftVal,BackLeftVal,BackRightVal,FrontRightVal);
 
-        mecaDrive.updatePoseEstimate();
-        Pose2d poseEstimate = mecaDrive.getPoseEstimate();
+        mecaDrive.getLocalizer().update();
+        Pose2d poseEstimate = mecaDrive.getLocalizer().getPoseEstimate();
 
         telemetry.addData("x",poseEstimate.getX());
         telemetry.addData("y",poseEstimate.getY());
