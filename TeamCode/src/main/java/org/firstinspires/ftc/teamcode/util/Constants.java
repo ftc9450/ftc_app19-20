@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.util;
 
+import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+
 /**
  * Created by dhruv on 1/22/18.
  */
@@ -26,6 +29,15 @@ public class Constants {
         public static final String RF = "frontright";
         public static final String RB = "backright";
         public static final String[] motors = {LF, LB, RF, RB};
+    }
+
+    public class MecaDrive{
+        public static final double kA = 0;
+        public static final double kStatic = 0;
+        public static final double TRACK_WIDTH = 16;
+        public static final double WHEEL_BASE = 10.5;
+        public static final double WHEEL_DIAMETER = 4;
+
     }
 
     public class FourBar{
