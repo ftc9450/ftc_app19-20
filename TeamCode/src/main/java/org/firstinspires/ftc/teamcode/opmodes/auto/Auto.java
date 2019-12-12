@@ -30,6 +30,10 @@ public class Auto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        int x = 0;
+        int y = 0;
+        int a = 0;
+
         kV = 1.0/rpmToVelocity(getMaxRpm());
 
         mecaDrive = new MecaDrive(kV,
@@ -43,7 +47,14 @@ public class Auto extends LinearOpMode {
         mecaDrive.getDrive().getRightBack().setDirection(DcMotor.Direction.REVERSE);
         mecaDrive.setLocalizer((new MecanumDrive.MecanumLocalizer(mecaDrive,true)));
 
-        mecaDrive.setDrivePower(vertical(10));
+        mecaDrive.setDrivePower(vertical(12));
+        mecaDrive.setDrivePower(turn(90));
+        mecaDrive.setDrivePower(horizontal(36)); //may need to change to vertical
+        mecaDrive.setDrivePower(turn(-90));
+
+        //something about a hook
+        mecaDrive.setDrivePower(vertical(12)); //may need to change to vertical
+
 
 
     }
