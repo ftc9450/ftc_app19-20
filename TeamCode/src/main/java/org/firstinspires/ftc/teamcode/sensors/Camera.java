@@ -4,6 +4,7 @@ import com.disnodeteam.dogecv.detectors.skystone.SkystoneDetector;
 import com.disnodeteam.dogecv.detectors.skystone.StoneDetector;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
@@ -13,6 +14,7 @@ public class Camera {
     private SkystoneDetector skystoneDetector;
     private StoneDetector stoneDetector;
     private Pipeline pipeline;
+    private Rect rect;
     public enum Pipeline{
         SKYSTONE,STONE;
     }
@@ -31,8 +33,18 @@ public class Camera {
     public void changePipeline(){
         if(pipeline == Pipeline.SKYSTONE){
             camera.setPipeline(stoneDetector);
+            pipeline = Pipeline.STONE;
         }else{
             camera.setPipeline(skystoneDetector);
+        }
+    }
+
+    public boolean isDetected(){
+        if(pipeline == Pipeline.SKYSTONE){
+            return skystoneDetector.isDetected();
+
+        }else{
+            return stoneDetector.isDetected();
         }
     }
 }
