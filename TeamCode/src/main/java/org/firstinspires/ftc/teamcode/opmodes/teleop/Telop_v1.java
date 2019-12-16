@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.MecaDrive;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
 
+@TeleOp(name = "Manuel", group = "TeleOps")
 public class Telop_v1 extends OpMode {
 
     SubsystemManager subsystemManager;

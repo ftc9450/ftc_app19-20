@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
-import org.firstinspires.ftc.teamcode.subsystems.MecaDrive;
+import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
-@Autonomous
+@Autonomous(name = "Auto", group = "Auto")
 public class Auto extends LinearOpMode {
 
     private MecaDrive mecaDrive;

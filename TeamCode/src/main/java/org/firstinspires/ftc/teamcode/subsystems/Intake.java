@@ -2,12 +2,13 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.util.Constants;
 
 public class Intake extends Subsystem {
-    private IntakeState state;
+    private boolean receive;
 
     private DcMotor leftMotor;
     private DcMotor rightMotor;
@@ -16,17 +17,17 @@ public class Intake extends Subsystem {
     private CRServo rightServo;
 
 
-    public enum IntakeState{
-        OFF,ON;
-    }
 
     public Intake(HardwareMap map) {
-        state = IntakeState.OFF;
+        receive = true;
 
         leftMotor = map.dcMotor.get(Constants.Intake.LM);
         rightMotor = map.dcMotor.get(Constants.Intake.RM);
         leftServo = map.crservo.get(Constants.Intake.LS);
         rightServo = map.crservo.get(Constants.Intake.RS);
+
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftServo.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class Intake extends Subsystem {
 
     @Override
     public void loop() {
-        if(state == IntakeState.ON) receive();
+        if(receive) receive();
         else off();
     }
 
@@ -53,7 +54,7 @@ public class Intake extends Subsystem {
         rightMotor.setPower(0);
     }
 
-    public void setState(IntakeState state){
-        this.state = state;
+    public void setState(boolean receive){
+        this.receive = receive;
     }
 }

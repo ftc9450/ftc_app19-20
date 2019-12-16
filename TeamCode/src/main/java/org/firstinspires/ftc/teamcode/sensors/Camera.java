@@ -8,6 +8,9 @@ import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Camera {
 
     private OpenCvCamera camera;
@@ -39,12 +42,27 @@ public class Camera {
         }
     }
 
-    public boolean isDetected(){
+    public int isDetected(){
         if(pipeline == Pipeline.SKYSTONE){
-            return skystoneDetector.isDetected();
+            if(skystoneDetector.isDetected()){
+                return 1;
+            }else{
+                return 2;
+            }
 
         }else{
-            return stoneDetector.isDetected();
+            if(stoneDetector.isDetected()){
+                return -1;
+            }else{
+                return -2;
+            }
         }
     }
+
+    public void loop(){
+        Rect skyRect = skystoneDetector.foundRectangle();
+        List<Rect> stoneRect = stoneDetector.foundRectangles();
+        
+    }
+
 }

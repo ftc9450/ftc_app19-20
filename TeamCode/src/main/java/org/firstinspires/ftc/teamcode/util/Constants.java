@@ -41,8 +41,7 @@ public class Constants {
     }
 
     public class FourBar{
-        public static final String BS = "bottomServo";
-        public static final String TS = "topServo";
+        public static final String FBM = "fourBarMotor";
 
     }
 
