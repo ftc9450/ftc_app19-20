@@ -57,4 +57,5 @@ public class Intake extends Subsystem {
     public void setState(boolean receive){
         this.receive = receive;
     }
+    public boolean getState() {return receive;}
 }
