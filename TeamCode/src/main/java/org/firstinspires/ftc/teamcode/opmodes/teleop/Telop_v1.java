@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
+import org.firstinspires.ftc.teamcode.util.Vector2D;
 
 @TeleOp(name = "Manuel", group = "TeleOps")
 public class Telop_v1 extends OpMode {
@@ -34,16 +35,16 @@ public class Telop_v1 extends OpMode {
 
     public void loop(){
         // TODO: put updated teleop drive code
-        //Vector2D v = new Vector2D();
-        double x = gamepad1.left_stick_x + (gamepad1.dpad_left? -0.5: gamepad1.dpad_right? 0.5:0);
-        double y = -gamepad1.left_stick_y + (gamepad1.dpad_down? -0.5: gamepad1.dpad_up? 0.5:0);
+        Vector2D v = new Vector2D();
+        v.x = gamepad1.left_stick_x + (gamepad1.dpad_left? -0.5: gamepad1.dpad_right? 0.5:0);
+        v.y = -gamepad1.left_stick_y + (gamepad1.dpad_down? -0.5: gamepad1.dpad_up? 0.5:0);
         float z = gamepad1.right_stick_x + (gamepad1.right_trigger - gamepad1.left_trigger)/2;
         double[] driveSignal = new double[]{0,0,0,0};
         double modifier = gamepad1.right_bumper? 0.5:1;
-        driveSignal[0]= x + y + z; // up on left stick is -1.
-        driveSignal[1]= -x + y + z;
-        driveSignal[2]= -x + y - z;
-        driveSignal[3]= x + y - z;
+        driveSignal[0]= v.x + v.y + z; // up on left stick is -1.
+        driveSignal[1]= -v.x + v.y + z;
+        driveSignal[2]= -v.x + v.y - z;
+        driveSignal[3]= v.x + v.y - z;
         for (int i = 0; i < 4; i++) driveSignal[i] *= modifier;
         drivetrain.setPower(driveSignal);
 
@@ -58,8 +59,10 @@ public class Telop_v1 extends OpMode {
 
         if (gamepad2.left_bumper) { }
 
-
-        //control fourbar
+        if(gamepad2.x){
+            fourBar.setClawState(!fourBar.getClawState());
+        }
+        //control fourbar position
         if(gamepad2.dpad_right){ }
             fourBar.setPosition(-1);
         if(gamepad2.dpad_up){

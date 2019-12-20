@@ -2,17 +2,21 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.util.Constants;
 
 public class FourBar extends Subsystem {
     private int position; //Height in inches above resting state
+    private boolean clawState;
 
     private DcMotor fbMotor;
+    private Servo clawServo;
 
     public FourBar(HardwareMap map) {
         position = 0;
         fbMotor = map.dcMotor.get(Constants.FourBar.FBM);
+        clawServo = map.servo.get(Constants.FourBar.CS);
         reset();//keep motor in lowest position when starting the bot.
     }
 
@@ -34,6 +38,9 @@ public class FourBar extends Subsystem {
         }else{
             this.position +=position;
         }
+
+        if(clawState){ clawServo.setPosition(Servo.MAX_POSITION); }
+        else{ clawServo.setPosition(Servo.MIN_POSITION);}
     }
 
     public void move(){
@@ -55,6 +62,9 @@ public class FourBar extends Subsystem {
                 break;
         }
     }
+    public void setClawState(boolean clawState){this.clawState = clawState; }
+    public boolean getClawState(){return clawState;}
+
 
     public void reset(){ //For when the motor position breaks down during manuel control phase
         fbMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

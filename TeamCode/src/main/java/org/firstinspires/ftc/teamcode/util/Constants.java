@@ -42,7 +42,7 @@ public class Constants {
 
     public class FourBar{
         public static final String FBM = "fourBarMotor";
-
+        public static final String CS = "clawServo";
     }
 
     public class Intake{
