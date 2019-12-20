@@ -31,9 +31,9 @@ public class FourBar extends Subsystem {
     }
 
     public void setPosition(int position){
-        if(this.position == 4 && position > 0){
+        if(this.position + position > 4){
             this.position = 0;
-        }else if(this.position == 0 && position < 0){
+        }else if(this.position + position < 0){
             this.position = 4;
         }else{
             this.position +=position;
