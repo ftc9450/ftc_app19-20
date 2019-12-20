@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
+import org.firstinspires.ftc.teamcode.subsystems.Hook;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
 
@@ -14,6 +15,7 @@ public class Telop_v1 extends OpMode {
     //MecaDrive mecaDrive;
     Intake intake;
     FourBar fourBar;
+    Hook hook;
 
     @Override
     public void init() {
@@ -21,9 +23,10 @@ public class Telop_v1 extends OpMode {
         //mecaDrive = new MecaDrive(); //TODO: put in parameters
         fourBar = new FourBar(hardwareMap);
         intake = new Intake(hardwareMap);
+        hook = new Hook(hardwareMap);
 
         subsystemManager = new SubsystemManager();
-        //subsystemManager = subsystemManager.add(fourBar).add(intake);
+        subsystemManager = subsystemManager.add(fourBar).add(intake).add(hook);
     }
 
     public void loop(){
@@ -46,7 +49,9 @@ public class Telop_v1 extends OpMode {
             intake.setState(!intake.getState());
         }
 
-        if (gamepad2.b) { }
+        if (gamepad2.b) { //toggles hook
+            hook.setState(!hook.getState());
+        }
 
         if (gamepad2.left_bumper) { }
 

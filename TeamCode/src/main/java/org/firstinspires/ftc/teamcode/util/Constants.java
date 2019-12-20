@@ -52,6 +52,10 @@ public class Constants {
         public static final String RM = "rightMotor";
     }
 
+    public class Hook{
+        public static final String SERVO = "hookServo";
+    }
+
     public class MotionTracker{
         public static final String FB = Drivetrain.RB;
         public static final String LR = "frontleft";
