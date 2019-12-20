@@ -17,7 +17,8 @@ public class Camera {
     private SkystoneDetector skystoneDetector;
     private StoneDetector stoneDetector;
     private Pipeline pipeline;
-    private Rect rect;
+    private Rect skyRect;
+    private List<Rect> stoneRect;
     public enum Pipeline{
         SKYSTONE,STONE;
     }
@@ -60,9 +61,16 @@ public class Camera {
     }
 
     public void loop(){
-        Rect skyRect = skystoneDetector.foundRectangle();
-        List<Rect> stoneRect = stoneDetector.foundRectangles();
+        skyRect = skystoneDetector.foundRectangle();
+        stoneRect = stoneDetector.foundRectangles();
         
     }
 
+    public Rect getSkyRect() {
+        return skyRect;
+    }
+
+    public void setSkyRect(Rect skyRect) {
+        this.skyRect = skyRect;
+    }
 }
