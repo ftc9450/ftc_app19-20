@@ -46,7 +46,6 @@ public class Auto extends LinearOpMode {
         mecaDrive.getDrive().getRightFront().setDirection(DcMotor.Direction.REVERSE);
         mecaDrive.getDrive().getRightBack().setDirection(DcMotor.Direction.REVERSE);
         mecaDrive.setLocalizer((new MecanumDrive.MecanumLocalizer(mecaDrive,true)));
-
         mecaDrive.setDrivePower(vertical(12));
         mecaDrive.setDrivePower(turn(90));
         mecaDrive.setDrivePower(horizontal(36)); //may need to change to vertical
@@ -56,6 +55,12 @@ public class Auto extends LinearOpMode {
         mecaDrive.setDrivePower(vertical(12)); //may need to change to vertical
 
 
+        while(true){
+            mainLoop();
+        }
+    }
+
+    public void mainLoop(){
 
     }
 
