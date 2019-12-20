@@ -9,12 +9,15 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
+import org.firstinspires.ftc.teamcode.sensors.Camera;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
-@Autonomous(name = "Auto", group = "Auto")
-public class Auto extends LinearOpMode {
+@Autonomous(name = "AutoBlue", group = "Auto")
+public class AutoBlue extends LinearOpMode {
 
     private MecaDrive mecaDrive;
+    private Camera camera;
+    private boolean hooked = false;
 
 
     //kV functions, TODO: find way to simplify
@@ -28,14 +31,9 @@ public class Auto extends LinearOpMode {
         return rpm * 2 * Math.PI * Constants.MecaDrive.WHEEL_DIAMETER / 60.0;
     }
 
-    @Override
-    public void runOpMode() throws InterruptedException {
-        int x = 0;
-        int y = 0;
-        int a = 0;
-
+    public void beginning(){
+        //start bot on the space closest to the center of the field
         kV = 1.0/rpmToVelocity(getMaxRpm());
-
         mecaDrive = new MecaDrive(kV,
                 Constants.MecaDrive.kA,
                 Constants.MecaDrive.kStatic,
@@ -46,22 +44,24 @@ public class Auto extends LinearOpMode {
         mecaDrive.getDrive().getRightFront().setDirection(DcMotor.Direction.REVERSE);
         mecaDrive.getDrive().getRightBack().setDirection(DcMotor.Direction.REVERSE);
         mecaDrive.setLocalizer((new MecanumDrive.MecanumLocalizer(mecaDrive,true)));
-        mecaDrive.setDrivePower(vertical(12));
-        mecaDrive.setDrivePower(turn(90));
-        mecaDrive.setDrivePower(horizontal(36)); //may need to change to vertical
-        mecaDrive.setDrivePower(turn(-90));
 
-        //something about a hook
-        mecaDrive.setDrivePower(vertical(12)); //may need to change to vertical
+        camera = new Camera(hardwareMap);
+    }
 
-
-        while(true){
+    @Override
+    public void runOpMode() throws InterruptedException {
+        int limit = 3;
+        for(int i = 0; i < limit; i++){
             mainLoop();
         }
+        endMovement();
     }
 
     public void mainLoop(){
 
+    }
+    public void endMovement(){
+        
     }
 
     public Pose2d vertical(double y){ return new Pose2d(0,y,0); }

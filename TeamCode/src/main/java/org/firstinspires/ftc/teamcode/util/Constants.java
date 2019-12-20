@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.util;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.teamcode.sensors.Bumpers;
+
 /**
  * Created by dhruv on 1/22/18.
  */
@@ -43,6 +45,12 @@ public class Constants {
     public class FourBar{
         public static final String FBM = "fourBarMotor";
         public static final String CS = "clawServo";
+    }
+
+    public class Bumpers{
+        public static final String TSB = "touchBack";
+        public static final String TSL = "touchLeft";
+        public static final String TSR = "touchRight";
     }
 
     public class Intake{

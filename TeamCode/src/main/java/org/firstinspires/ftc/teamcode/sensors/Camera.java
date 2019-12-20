@@ -4,6 +4,7 @@ import com.disnodeteam.dogecv.detectors.skystone.SkystoneDetector;
 import com.disnodeteam.dogecv.detectors.skystone.StoneDetector;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvInternalCamera;
@@ -17,8 +18,15 @@ public class Camera {
     private SkystoneDetector skystoneDetector;
     private StoneDetector stoneDetector;
     private Pipeline pipeline;
+
     private Rect skyRect;
-    private List<Rect> stoneRect;
+    private int rectCenterWidth;
+    private Point skyPoint;
+
+    private List<Rect> stoneRects;
+    private List<Point> stonePoints;
+
+
     public enum Pipeline{
         SKYSTONE,STONE;
     }
@@ -43,34 +51,34 @@ public class Camera {
         }
     }
 
-    public int isDetected(){
+    public boolean isDetected(){
         if(pipeline == Pipeline.SKYSTONE){
-            if(skystoneDetector.isDetected()){
-                return 1;
-            }else{
-                return 2;
-            }
+            return skystoneDetector.isDetected();
 
         }else{
-            if(stoneDetector.isDetected()){
-                return -1;
-            }else{
-                return -2;
-            }
+            return stoneDetector.isDetected();
+
         }
     }
 
     public void loop(){
-        skyRect = skystoneDetector.foundRectangle();
-        stoneRect = stoneDetector.foundRectangles();
+        if(pipeline == Pipeline.SKYSTONE){
+            if(isDetected()){
+                skyRect = skystoneDetector.foundRectangle();
+                skyPoint = skystoneDetector.getScreenPosition();
+            }
+        }else{
+            if(isDetected()){
+                stoneRects = stoneDetector.foundRectangles();
+                stonePoints = stoneDetector.foundScreenPositions();
+            }
+        }
         
     }
 
-    public Rect getSkyRect() {
-        return skyRect;
-    }
+    public Rect getSkyRect() { return skyRect; }
+    public Point getSkyPoint(){ return skyPoint; }
 
-    public void setSkyRect(Rect skyRect) {
-        this.skyRect = skyRect;
-    }
+    public List<Rect> getStoneRect(){ return stoneRects; }
+    public List<Point> getStonePoints(){ return stonePoints;}
 }
