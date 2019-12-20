@@ -65,11 +65,13 @@ public class Camera {
         if(pipeline == Pipeline.SKYSTONE){
             if(isDetected()){
                 skyRect = skystoneDetector.foundRectangle();
+                rectCenterWidth = skyRect.width/2;
                 skyPoint = skystoneDetector.getScreenPosition();
             }
         }else{
             if(isDetected()){
                 stoneRects = stoneDetector.foundRectangles();
+                rectCenterWidth = stoneRects.get(0).width/2;
                 stonePoints = stoneDetector.foundScreenPositions();
             }
         }
@@ -81,4 +83,6 @@ public class Camera {
 
     public List<Rect> getStoneRect(){ return stoneRects; }
     public List<Point> getStonePoints(){ return stonePoints;}
+
+    public int getRectCenterWidth(){ return rectCenterWidth;}
 }

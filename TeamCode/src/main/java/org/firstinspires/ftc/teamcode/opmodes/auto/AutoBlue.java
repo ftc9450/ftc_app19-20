@@ -58,10 +58,14 @@ public class AutoBlue extends LinearOpMode {
     }
 
     public void mainLoop(){
-
+        while(camera.getSkyPoint().x < camera.getRectCenterWidth()){
+            mecaDrive.setDrivePower(horizontal(1));
+        }
+        mecaDrive.setDrivePower(vertical(24));
     }
+
     public void endMovement(){
-        
+
     }
 
     public Pose2d vertical(double y){ return new Pose2d(0,y,0); }
