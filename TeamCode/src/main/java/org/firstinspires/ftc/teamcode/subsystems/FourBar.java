@@ -64,6 +64,7 @@ public class FourBar extends Subsystem {
     }
     public void setClawState(boolean clawState){this.clawState = clawState; }
     public boolean getClawState(){return clawState;}
+    public int getPosition(){ return position;}
 
 
     public void reset(){ //For when the motor position breaks down during manuel control phase

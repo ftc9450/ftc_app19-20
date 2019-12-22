@@ -3,11 +3,14 @@ package org.firstinspires.ftc.teamcode.driveModes;
 import com.acmerobotics.roadrunner.drive.MecanumDrive;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.teamcode.sensors.Gyroscope;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,9 +22,20 @@ public class MecaDrive extends MecanumDrive {
     private Gyroscope imu;
     private double ticks;
 
+    //TODO: Add these into Constants
+    private static final MotorConfigurationType MOTOR_CONFIG =
+            MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
+    public static double getMaxRpm() {
+        return MOTOR_CONFIG.getMaxRPM();
+    }
+    public static double rpmToVelocity(double rpm) {
+        return rpm * 2 * Math.PI * Constants.MecaDrive.WHEEL_DIAMETER / 60.0;
+    }
+    private static double kV = 1.0/rpmToVelocity(getMaxRpm());
+
     //TODO: Add back wheelBase
-    public MecaDrive(double kV, double kA, double kStatic, double trackWidth,double wheelBase, HardwareMap map) {
-        super(kV, kA, kStatic, trackWidth,wheelBase);
+    public MecaDrive(HardwareMap map) {
+        super(kV, Constants.MecaDrive.kA, Constants.MecaDrive.kStatic, Constants.MecaDrive.TRACK_WIDTH,Constants.MecaDrive.WHEEL_BASE);
         drive = new Drivetrain(map);
         motors = Arrays.asList(drive.getLeftFront(), drive.getLeftBack(), drive.getRightBack(), drive.getRightFront());
         imu = new Gyroscope(map.get(BNO055IMU.class, "imu"));
@@ -84,5 +98,9 @@ public class MecaDrive extends MecanumDrive {
     }
     public void turn (double a){
         this.setDrivePower(new Pose2d(0,0,a));
+    }
+
+    public void fullMovement(double x, double y){
+        this.setDrivePower(new Pose2d(x,y,0));
     }
 }

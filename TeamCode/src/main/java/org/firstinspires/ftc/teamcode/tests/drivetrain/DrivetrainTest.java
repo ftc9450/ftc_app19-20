@@ -25,31 +25,10 @@ public class DrivetrainTest extends OpMode {
     //private double y;
     //private List<Double> wheelVelo;
 
-    //TODO: Add these into Constants
-    private static double kV;
-    private static final MotorConfigurationType MOTOR_CONFIG =
-            MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
-    public static double getMaxRpm() {
-        return MOTOR_CONFIG.getMaxRPM();
-    }
-    public static double rpmToVelocity(double rpm) {
-        return rpm * 2 * Math.PI * Constants.MecaDrive.WHEEL_DIAMETER / 60.0;
-    }
-
     @Override
     public void init() {
-        kV = 1.0/rpmToVelocity(getMaxRpm());
 
-        mecaDrive = new MecaDrive(kV,
-                Constants.MecaDrive.kA,
-                Constants.MecaDrive.kStatic,
-                Constants.MecaDrive.TRACK_WIDTH,
-                Constants.MecaDrive.WHEEL_BASE,hardwareMap);
-        mecaDrive.getDrive().getLeftFront().setDirection(DcMotor.Direction.FORWARD);
-        mecaDrive.getDrive().getLeftBack().setDirection(DcMotor.Direction.FORWARD);
-        mecaDrive.getDrive().getRightFront().setDirection(DcMotor.Direction.REVERSE);
-        mecaDrive.getDrive().getRightBack().setDirection(DcMotor.Direction.REVERSE);
-        mecaDrive.setLocalizer((new MecanumDrive.MecanumLocalizer(mecaDrive,true)));
+        mecaDrive = new MecaDrive(hardwareMap);
         //x = 0;
         //y = 0;
     }
