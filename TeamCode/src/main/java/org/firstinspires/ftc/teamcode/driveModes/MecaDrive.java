@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.driveModes;
 
 import com.acmerobotics.roadrunner.drive.MecanumDrive;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -73,5 +74,15 @@ public class MecaDrive extends MecanumDrive {
 
     public double getTicks() {
         return ticks;
+    }
+
+    public void vertical(double y){
+        this.setDrivePower(new Pose2d(0,y,0));
+    }
+    public void horizontal(double x){
+        this.setDrivePower(new Pose2d(x,0,0));
+    }
+    public void turn (double a){
+        this.setDrivePower(new Pose2d(0,0,a));
     }
 }

@@ -72,48 +72,45 @@ public class AutoBlue extends LinearOpMode {
     public void mainLoop(){
         if(!stone){
             while(camera.getSkyPoint().x < camera.getRectCenterWidth() || bumpers.touchRight()){
-                mecaDrive.setDrivePower(horizontal(10));
+                mecaDrive.horizontal(10);
             }
             if(bumpers.touchRight()){
                 camera.changePipeline();
                 while (camera.getStonePoints().get(0).x > camera.getRectCenterWidth()){
-                    mecaDrive.setDrivePower(horizontal(-10));
+                    mecaDrive.horizontal(-10);
                 }
             }
         }else{
             while (camera.getStonePoints().get(0).x < camera.getRectCenterWidth()|| bumpers.touchRight()){
-                mecaDrive.setDrivePower(horizontal(10));
+                mecaDrive.horizontal(10);
             }
         }
 
         intake.receive();
-        mecaDrive.setDrivePower(vertical(24));
+        mecaDrive.vertical(24);
         intake.off();
-        mecaDrive.setDrivePower(turn(-90));
+        mecaDrive.turn(-90);
         while(mecaDrive.getPoseEstimate().getX() > -22 ){
-            mecaDrive.setDrivePower(horizontal(-10));
+            mecaDrive.horizontal(-10);
         }
         if(!hooked){
             hooked = true;
             hook.setState(true); hook.loop();
         }
-        mecaDrive.setDrivePower(vertical(-24));
+        mecaDrive.vertical(-24);
         hook.setState(false); hook.loop();
         fourbar.setClawState(true); fourbar.loop();
         fourbar.setPosition(4); fourbar.loop();
         fourbar.setClawState(false); fourbar.loop();
         fourbar.setPosition(-4); fourbar.loop();
-        mecaDrive.setDrivePower(turn(90));
+        mecaDrive.turn(90);
     }
 
     public void endMovement(){
         while(mecaDrive.getPoseEstimate().getX() < -8 ){
-            mecaDrive.setDrivePower(horizontal(10));
+            mecaDrive.horizontal(10);
         }
         stop();
     }
 
-    public Pose2d vertical(double y){ return new Pose2d(0,y,0); }
-    public Pose2d horizontal (double x){ return new Pose2d(x,0,0); }
-    public Pose2d turn (double a){return new Pose2d(0,0,a); }
 }
