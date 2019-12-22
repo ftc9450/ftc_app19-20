@@ -42,17 +42,7 @@ public class AutoRed extends LinearOpMode {
     public void beginning(){
         //start bot on the space closest to the center of the field
         kV = 1.0/rpmToVelocity(getMaxRpm());
-        mecaDrive = new MecaDrive(kV,
-                Constants.MecaDrive.kA,
-                Constants.MecaDrive.kStatic,
-                Constants.MecaDrive.TRACK_WIDTH,
-                Constants.MecaDrive.WHEEL_BASE,hardwareMap);
-        mecaDrive.getDrive().getLeftFront().setDirection(DcMotor.Direction.FORWARD);
-        mecaDrive.getDrive().getLeftBack().setDirection(DcMotor.Direction.FORWARD);
-        mecaDrive.getDrive().getRightFront().setDirection(DcMotor.Direction.REVERSE);
-        mecaDrive.getDrive().getRightBack().setDirection(DcMotor.Direction.REVERSE);
-        mecaDrive.setLocalizer((new MecanumDrive.MecanumLocalizer(mecaDrive,true)));
-
+        mecaDrive = new MecaDrive(hardwareMap);
         camera = new Camera(hardwareMap);
         hook = new Hook(hardwareMap);
         fourbar = new FourBar(hardwareMap);

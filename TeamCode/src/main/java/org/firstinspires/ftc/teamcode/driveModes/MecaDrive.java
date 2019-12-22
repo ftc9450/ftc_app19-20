@@ -47,6 +47,11 @@ public class MecaDrive extends MecanumDrive {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+        this.getDrive().getLeftFront().setDirection(DcMotor.Direction.FORWARD);
+        this.getDrive().getLeftBack().setDirection(DcMotor.Direction.FORWARD);
+        this.getDrive().getRightFront().setDirection(DcMotor.Direction.REVERSE);
+        this.getDrive().getRightBack().setDirection(DcMotor.Direction.REVERSE);
+        this.setLocalizer((new MecanumDrive.MecanumLocalizer(this,true)));
     }
 
     @Override
