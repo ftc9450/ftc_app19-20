@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.sensors;
 
+import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.skystone.SkystoneDetector;
 import com.disnodeteam.dogecv.detectors.skystone.StoneDetector;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
@@ -40,6 +42,18 @@ public class Camera {
         camera.setPipeline(skystoneDetector);
         pipeline = Pipeline.SKYSTONE;
 
+        skystoneDetector.useDefaults();
+        skystoneDetector.areaScoringMethod = DogeCV.AreaScoringMethod.PERFECT_AREA;
+        skystoneDetector.maxAreaScorer.weight = 0.005;
+        skystoneDetector.ratioScorer.weight = 5;
+        skystoneDetector.ratioScorer.perfectRatio = 1.0;
+
+        stoneDetector.useDefaults();
+        stoneDetector.areaScoringMethod = DogeCV.AreaScoringMethod.PERFECT_AREA;
+        stoneDetector.maxAreaScorer.weight = 0.005;
+
+        camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+
     }
 
     public void changePipeline(){
@@ -48,6 +62,7 @@ public class Camera {
             pipeline = Pipeline.STONE;
         }else{
             camera.setPipeline(skystoneDetector);
+            pipeline = Pipeline.SKYSTONE;
         }
     }
 
@@ -80,6 +95,7 @@ public class Camera {
 
     public Rect getSkyRect() { return skyRect; }
     public Point getSkyPoint(){ return skyPoint; }
+    public Pipeline getPipeline(){return pipeline;}
 
     public List<Rect> getStoneRect(){ return stoneRects; }
     public List<Point> getStonePoints(){ return stonePoints;}
