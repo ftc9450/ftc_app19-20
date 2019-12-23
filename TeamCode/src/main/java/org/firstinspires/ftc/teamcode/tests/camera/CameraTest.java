@@ -22,11 +22,19 @@ public class CameraTest extends OpMode {
             if(camera.isDetected()){
                 //telemetry.addData("Skypoint: ", camera.getSkyPoint().x);
                 //telemetry.addData("Center: ", camera.getRectCenterWidth());
+                if(camera.getSkyRect() != null){
+                    telemetry.addData("Sky Rect", camera.getSkyPoint());
+                }
             }
         }else{
             if(camera.isDetected()){
-                //telemetry.addData("StonePoint: ", camera.getStonePoints().get(0).x);
-                //telemetry.addData("Center: ", camera.getRectCenterWidth());
+                if(camera.getStonePoints() != null){
+                    telemetry.addData("StonePoint: ", camera.getStonePoints().get(0).x);
+                    telemetry.addData("Center: ", camera.getRectCenterWidth());
+                }
+                if(camera.getStoneRect() != null){
+                    telemetry.addData("Stone Rects: ", camera.getStoneRect());
+                }
             }
         }
 
