@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.sensors;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
@@ -72,7 +73,9 @@ public class CameraVuforia {
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
+
     private List<VuforiaTrackable> allTrackables;
+    private VuforiaTrackables targetsSkyStone;
 
     public CameraVuforia(HardwareMap map) {
         /*
@@ -93,7 +96,7 @@ public class CameraVuforia {
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
-        VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+        targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
 
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
@@ -257,14 +260,14 @@ public class CameraVuforia {
         targetsSkyStone.activate();
     }
 
-    public void loop(){
+    public void loop(Telemetry telemetry){
         targetVisible = false;
         for (VuforiaTrackable trackable : allTrackables) {
             if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
-                //telemetry.addData("Visible Target", trackable.getName());
+                telemetry.addData("Visible Target", trackable.getName());
 
                 if(trackable.getName().equals("Stone Target")){
-                    //telemetry.addLine("Stone Target Is Visible");
+                    telemetry.addLine("Stone Target Is Visible");
                 }
 
                 targetVisible = true;
@@ -283,7 +286,7 @@ public class CameraVuforia {
         if (targetVisible) {
             // express position (translation) of robot in inches.
             VectorF translation = lastLocation.getTranslation();
-            //telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
+            telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
             double xPosition = translation.get(0);
             if(xPosition < -10){
@@ -294,18 +297,24 @@ public class CameraVuforia {
 
             // express the rotation of the robot in degrees.
             Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-            //telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+            telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
         }
         else {
             positionSkystone = "right";
-            //telemetry.addData("Visible Target", "none");
+            telemetry.addData("Visible Target", "none");
         }
-        //telemetry.addData("Skystone Position", positionSkystone);
-        //telemetry.update();
+        telemetry.addData("Skystone Position", positionSkystone);
+        telemetry.update();
     }
 
-    // Disable Tracking when we are done;
-        //targetsSkyStone.deactivate();
+    public void stop(){
+        // Disable Tracking when we are done;
+        targetsSkyStone.deactivate();
+    }
+
+    public boolean isTargetVisible() {
+        return targetVisible;
+    }
 }
 
 
