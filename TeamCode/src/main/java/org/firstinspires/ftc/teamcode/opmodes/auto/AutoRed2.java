@@ -70,6 +70,7 @@ public class AutoRed2 extends LinearOpMode {
             }
             if(bumpers.touchRight()){
                 cameraVuforia.stop();
+                cameraVuforia = null;
                 camera = new Camera(hardwareMap);
                 camera.changePipeline();
                 while (camera.getStonePoints().get(0).x < camera.getRectCenterWidth()){
