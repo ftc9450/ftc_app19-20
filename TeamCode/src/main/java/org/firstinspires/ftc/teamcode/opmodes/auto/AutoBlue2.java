@@ -11,16 +11,18 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
 import org.firstinspires.ftc.teamcode.sensors.Bumpers;
 import org.firstinspires.ftc.teamcode.sensors.Camera;
+import org.firstinspires.ftc.teamcode.sensors.CameraVuforia;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
-@Autonomous(name = "AutoBlue", group = "Auto")
-public class AutoBlue extends LinearOpMode {
+@Autonomous(name = "AutoBlue2", group = "Auto")
+public class AutoBlue2 extends LinearOpMode {
 
     private MecaDrive mecaDrive;
     private Camera camera;
+    private CameraVuforia cameraVuforia;
     private boolean hooked = false;
     private boolean stone = false;
     private Hook hook;
@@ -44,7 +46,9 @@ public class AutoBlue extends LinearOpMode {
         kV = 1.0/rpmToVelocity(getMaxRpm());
         mecaDrive = new MecaDrive(hardwareMap);
 
-        camera = new Camera(hardwareMap);
+        //camera = new Camera(hardwareMap);
+        cameraVuforia = new CameraVuforia(hardwareMap);
+
         hook = new Hook(hardwareMap);
         fourbar = new FourBar(hardwareMap);
         intake = new Intake(hardwareMap);
@@ -62,17 +66,21 @@ public class AutoBlue extends LinearOpMode {
 
     public void mainLoop(){
         if(!stone){
-            while(camera.getSkyPoint().x < camera.getRectCenterWidth() || bumpers.touchRight()){
+            while(!cameraVuforia.isTargetVisible() || !bumpers.touchRight()){
+                cameraVuforia.loop(telemetry);
                 mecaDrive.horizontal(10);
             }
             if(bumpers.touchRight()){
+                cameraVuforia.stop();
+                camera = new Camera(hardwareMap);
                 camera.changePipeline();
                 while (camera.getStonePoints().get(0).x > camera.getRectCenterWidth()){
                     mecaDrive.horizontal(-10);
                 }
+                stone = true;
             }
         }else{
-            while (camera.getStonePoints().get(0).x < camera.getRectCenterWidth()|| bumpers.touchRight()){
+            while (camera.getStonePoints().get(0).x < camera.getRectCenterWidth()|| !bumpers.touchRight()){
                 mecaDrive.horizontal(10);
             }
         }

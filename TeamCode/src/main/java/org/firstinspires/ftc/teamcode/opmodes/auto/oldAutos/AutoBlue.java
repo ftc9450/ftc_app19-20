@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.auto;
+package org.firstinspires.ftc.teamcode.opmodes.auto.oldAutos;
 
 import com.acmerobotics.roadrunner.drive.MecanumDrive;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Hook;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
-@Autonomous(name = "AutoRed", group = "Auto")
-public class AutoRed extends LinearOpMode {
+@Autonomous(name = "AutoBlue", group = "Auto")
+public class AutoBlue extends LinearOpMode {
 
     private MecaDrive mecaDrive;
     private Camera camera;
@@ -43,6 +43,7 @@ public class AutoRed extends LinearOpMode {
         //start bot on the space closest to the center of the field
         kV = 1.0/rpmToVelocity(getMaxRpm());
         mecaDrive = new MecaDrive(hardwareMap);
+
         camera = new Camera(hardwareMap);
         hook = new Hook(hardwareMap);
         fourbar = new FourBar(hardwareMap);
@@ -61,39 +62,39 @@ public class AutoRed extends LinearOpMode {
 
     public void mainLoop(){
         if(!stone){
-            while(camera.getSkyPoint().x > camera.getRectCenterWidth() || bumpers.touchRight()){
-                mecaDrive.horizontal(-10);
+            while(camera.getSkyPoint().x < camera.getRectCenterWidth() || bumpers.touchRight()){
+                mecaDrive.horizontal(10);
             }
             if(bumpers.touchRight()){
                 camera.changePipeline();
-                while (camera.getStonePoints().get(0).x < camera.getRectCenterWidth()){
-                    mecaDrive.horizontal(10);
+                while (camera.getStonePoints().get(0).x > camera.getRectCenterWidth()){
+                    mecaDrive.horizontal(-10);
                 }
             }
         }else{
-            while (camera.getStonePoints().get(0).x > camera.getRectCenterWidth()|| bumpers.touchRight()){
-                mecaDrive.horizontal(-10);
+            while (camera.getStonePoints().get(0).x < camera.getRectCenterWidth()|| bumpers.touchRight()){
+                mecaDrive.horizontal(10);
             }
         }
 
         intake.receive();
-        mecaDrive.vertical(-24);
+        mecaDrive.vertical(24);
         intake.off();
-        mecaDrive.turn(90);
-        while(mecaDrive.getPoseEstimate().getX() > 22 ){
-            mecaDrive.horizontal(10);
+        mecaDrive.turn(-90);
+        while(mecaDrive.getPoseEstimate().getX() > -22 ){
+            mecaDrive.horizontal(-10);
         }
         if(!hooked){
             hooked = true;
             hook.setState(true); hook.loop();
         }
-        mecaDrive.vertical(24);
+        mecaDrive.vertical(-24);
         hook.setState(false); hook.loop();
         fourbar.setClawState(true); fourbar.loop();
         fourbar.setPosition(4); fourbar.loop();
         fourbar.setClawState(false); fourbar.loop();
         fourbar.setPosition(-4); fourbar.loop();
-        mecaDrive.turn(-90);
+        mecaDrive.turn(90);
     }
 
     public void endMovement(){
