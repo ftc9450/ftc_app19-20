@@ -66,10 +66,10 @@ public class MecaDrive extends MecanumDrive {
 
     @Override
     public void setMotorPowers(double v, double v1, double v2, double v3) {
-        drive.getLeftFront().setPower(v);
-        drive.getLeftBack().setPower(v1);
-        drive.getRightBack().setPower(v2);
-        drive.getRightFront().setPower(v3);
+        drive.getLeftFront().setPower(v*Constants.MecaDrive.SPEED_MULTIPLIER);
+        drive.getLeftBack().setPower(v1*Constants.MecaDrive.SPEED_MULTIPLIER);
+        drive.getRightBack().setPower(v2*Constants.MecaDrive.SPEED_MULTIPLIER);
+        drive.getRightFront().setPower(v3*Constants.MecaDrive.SPEED_MULTIPLIER);
 
     }
 

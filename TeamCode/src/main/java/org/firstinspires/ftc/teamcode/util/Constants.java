@@ -39,7 +39,7 @@ public class Constants {
         public static final double TRACK_WIDTH = 16;
         public static final double WHEEL_BASE = 10.5;
         public static final double WHEEL_DIAMETER = 4;
-
+        public static final double SPEED_MULTIPLIER = .5;
     }
 
     public class FourBar{
