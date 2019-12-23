@@ -65,6 +65,7 @@ public class AutoBlue2 extends LinearOpMode {
     }
 
     public void mainLoop(){
+        mecaDrive.vertical(18);
         if(!stone){
             while(!cameraVuforia.isTargetVisible() || !bumpers.touchRight()){
                 cameraVuforia.loop(telemetry);

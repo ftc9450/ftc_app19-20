@@ -63,6 +63,7 @@ public class AutoRed2 extends LinearOpMode {
     }
 
     public void mainLoop(){
+        mecaDrive.vertical(18);
         if(!stone){
             while(!cameraVuforia.isTargetVisible() || !bumpers.touchRight()){
                 cameraVuforia.loop(telemetry);
@@ -85,7 +86,7 @@ public class AutoRed2 extends LinearOpMode {
         }
 
         intake.receive();
-        mecaDrive.vertical(-24);
+        mecaDrive.vertical(24);
         intake.off();
         mecaDrive.turn(90);
         while(mecaDrive.getPoseEstimate().getX() > 22 ){
@@ -95,7 +96,7 @@ public class AutoRed2 extends LinearOpMode {
             hooked = true;
             hook.setState(true); hook.loop();
         }
-        mecaDrive.vertical(24);
+        mecaDrive.vertical(-24);
         hook.setState(false); hook.loop();
         fourbar.setClawState(true); fourbar.loop();
         fourbar.setPosition(4); fourbar.loop();
