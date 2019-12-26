@@ -1,11 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmodes.auto;
 
-import com.acmerobotics.roadrunner.drive.MecanumDrive;
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
@@ -91,7 +88,7 @@ public class AutoBlue2 extends LinearOpMode {
         intake.receive();
         mecaDrive.verticalAuto(24);
         intake.off();
-        mecaDrive.turn(-90);
+        mecaDrive.turnAuto(-90);
         while(mecaDrive.getPoseEstimate().getX() > -22 ){
             mecaDrive.horizontalAuto(-10);
         }
@@ -105,7 +102,7 @@ public class AutoBlue2 extends LinearOpMode {
         fourbar.setPosition(4); fourbar.loop();
         fourbar.setClawState(false); fourbar.loop();
         fourbar.setPosition(-4); fourbar.loop();
-        mecaDrive.turn(90);
+        mecaDrive.turnAuto(90);
     }
 
     public void endMovement(){
