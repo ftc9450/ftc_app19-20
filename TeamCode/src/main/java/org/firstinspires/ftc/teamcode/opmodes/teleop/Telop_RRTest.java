@@ -53,7 +53,7 @@ public class Telop_RRTest extends OpMode {
         if(gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0){
             mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y);
         }else{
-            mecaDrive.turn(Math.tan(gamepad1.right_stick_y/gamepad1.right_stick_x));
+            mecaDrive.turn(gamepad1.right_stick_y);
         }
 
 
