@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MecaDrive extends MecanumDrive {
+public class MecaDriveMain extends MecanumDrive {
     private Drivetrain drive;
     private List<DcMotor> motors;
     private Gyroscope imu;
@@ -34,8 +34,8 @@ public class MecaDrive extends MecanumDrive {
     private static double kV = 1.0/rpmToVelocity(getMaxRpm());
 
     //TODO: Add back wheelBase
-    public MecaDrive(HardwareMap map) {
-        super(kV, Constants.MecaDrive.kA, Constants.MecaDrive.kStatic, Constants.MecaDrive.TRACK_WIDTH,Constants.MecaDrive.WHEEL_BASE);
+    public MecaDriveMain(HardwareMap map) {
+        super(kV, Constants.MecaDrive.kA, Constants.MecaDrive.kStatic, Constants.MecaDrive.TRACK_WIDTH2,Constants.MecaDrive.WHEEL_BASE2);
         drive = new Drivetrain(map);
         motors = Arrays.asList(drive.getLeftFront(), drive.getLeftBack(), drive.getRightBack(), drive.getRightFront());
         imu = new Gyroscope(map.get(BNO055IMU.class, "imu"));
@@ -103,41 +103,6 @@ public class MecaDrive extends MecanumDrive {
     }
     public void turn (double a){
         this.setDrivePower(new Pose2d(0,0,a));
-    }
-
-
-    public void verticalAuto(double t){
-        if(t < this.getPoseEstimate().getX()){
-            while(this.getPoseEstimate().getX() > t){
-                vertical(Math.abs(t)/t);
-            }
-        }else {
-            while(this.getPoseEstimate().getX() < t){
-                vertical(Math.abs(t)/t);
-            }
-        }
-    }
-    public void horizontalAuto(double t){
-        if(t < this.getPoseEstimate().getY()){
-            while(this.getPoseEstimate().getY() > t){
-                horizontal(Math.abs(t)/t);
-            }
-        }else {
-            while(this.getPoseEstimate().getY() < t){
-                horizontal(Math.abs(t)/t);
-            }
-        }
-    }
-    public void turnAuto(double t){
-        if(t < this.getPoseEstimate().getHeading()){
-            while(this.getPoseEstimate().getHeading() > t){
-                turn(Math.abs(t)/t);
-            }
-        }else {
-            while(this.getPoseEstimate().getHeading() < t){
-                turn(Math.abs(t)/t);
-            }
-        }
     }
 
     public void fullMovement(double y, double x){

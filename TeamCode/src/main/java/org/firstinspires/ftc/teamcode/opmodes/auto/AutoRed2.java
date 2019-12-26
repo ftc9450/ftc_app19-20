@@ -63,11 +63,11 @@ public class AutoRed2 extends LinearOpMode {
     }
 
     public void mainLoop(){
-        mecaDrive.vertical(18);
+        mecaDrive.verticalAuto(18);
         if(!stone){
             while(!cameraVuforia.isTargetVisible() || !bumpers.touchRight()){
                 cameraVuforia.loop(telemetry);
-                mecaDrive.horizontal(-10);
+                mecaDrive.horizontalAuto(-10);
             }
             if(bumpers.touchRight()){
                 cameraVuforia.stop();
@@ -75,28 +75,28 @@ public class AutoRed2 extends LinearOpMode {
                 camera = new Camera(hardwareMap);
                 camera.changePipeline();
                 while (camera.getStonePoints().get(0).x < camera.getRectCenterWidth()){
-                    mecaDrive.horizontal(10);
+                    mecaDrive.horizontalAuto(10);
                 }
                 stone = true;
             }
         }else{
             while (camera.getStonePoints().get(0).x > camera.getRectCenterWidth()|| !bumpers.touchRight()){
-                mecaDrive.horizontal(-10);
+                mecaDrive.horizontalAuto(-10);
             }
         }
 
         intake.receive();
-        mecaDrive.vertical(24);
+        mecaDrive.verticalAuto(24);
         intake.off();
         mecaDrive.turn(90);
         while(mecaDrive.getPoseEstimate().getX() > 22 ){
-            mecaDrive.horizontal(10);
+            mecaDrive.horizontalAuto(10);
         }
         if(!hooked){
             hooked = true;
             hook.setState(true); hook.loop();
         }
-        mecaDrive.vertical(-24);
+        mecaDrive.verticalAuto(-24);
         hook.setState(false); hook.loop();
         fourbar.setClawState(true); fourbar.loop();
         fourbar.setPosition(4); fourbar.loop();
@@ -107,7 +107,7 @@ public class AutoRed2 extends LinearOpMode {
 
     public void endMovement(){
         while(mecaDrive.getPoseEstimate().getX() < -8 ){
-            mecaDrive.horizontal(10);
+            mecaDrive.horizontalAuto(10);
         }
         stop();
     }
