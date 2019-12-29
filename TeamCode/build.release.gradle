@@ -1,5 +1,8 @@
 dependencies {
     implementation project(':FtcRobotController')
+    //implementation project(':bluejay')
+    //implementation project(':DogeCV')
+    //implementation project(':openCVLibrary3')
     implementation (name: 'RobotCore-release', ext: 'aar')
     implementation (name: 'Hardware-release', ext: 'aar')
     implementation (name: 'FtcCommon-release', ext: 'aar')

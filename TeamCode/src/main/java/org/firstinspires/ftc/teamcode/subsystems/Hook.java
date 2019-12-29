@@ -7,15 +7,15 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 
 public class Hook extends Subsystem {
     private Servo servo;
-    private boolean isDown;
+    private boolean isUp;
 
     public Hook(HardwareMap map) {
         servo = map.servo.get(Constants.Hook.SERVO);
-        isDown = false;
+        isUp = true;
     }
 
-    public void setState(boolean isDown){ this.isDown = isDown;}
-    public boolean getState(){return isDown;}
+    public void setState(boolean isUp){ this.isUp = isUp;}
+    public boolean getState(){return isUp;}
 
     @Override
     public void stop() {
@@ -23,7 +23,7 @@ public class Hook extends Subsystem {
     }
     @Override
     public void loop() {
-        if(isDown){
+        if(isUp){
             servo.setPosition(Servo.MAX_POSITION);
         }else{
             servo.setPosition(Servo.MIN_POSITION);

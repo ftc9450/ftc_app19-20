@@ -20,20 +20,21 @@ public class Telop_RRTest extends OpMode {
     MecaDrive mecaDrive;
     Intake intake;
     FourBar fourBar;
-    //Hook hook;
+    Hook hook;
     //Drivetrain drivetrain;
+    boolean previousHook;
 
     @Override
     public void init() {
 
         mecaDrive = new MecaDrive(hardwareMap); //TODO: put in parameters
-        fourBar = new FourBar(hardwareMap);
-        intake = new Intake(hardwareMap);
-        //hook = new Hook(hardwareMap);
+        //fourBar = new FourBar(hardwareMap);
+        //intake = new Intake(hardwareMap);
+        hook = new Hook(hardwareMap); previousHook = hook.getState();
         //drivetrain = new Drivetrain(hardwareMap);
 
         subsystemManager = new SubsystemManager();
-        subsystemManager = subsystemManager.add(fourBar).add(intake);
+        subsystemManager = subsystemManager.add(hook);//.add(fourBar).add(intake)
     }
 
     public void loop(){
@@ -58,25 +59,25 @@ public class Telop_RRTest extends OpMode {
 
 
 
-        if (gamepad1.a) {//toggles intake
+        /*if (gamepad1.a) {//toggles intake
             intake.setState(!intake.getState());
-        }
-
-        /*if (gamepad2.b) { //toggles hook
-            hook.setState(!hook.getState());
         }*/
+
+        if (gamepad1.b && previousHook == hook.getState()) { //toggles hook
+            hook.setState(!hook.getState());
+        }else if(!gamepad1.b){ previousHook = hook.getState(); }
 
         if (gamepad2.left_bumper) { }
 
-        if(gamepad2.x){
+        /*if(gamepad2.x){
             fourBar.setClawState(!fourBar.getClawState());
-        }
+        }*/
         //control fourbar position
-        if(gamepad2.dpad_right){ }
+        /*if(gamepad2.dpad_right){ }
         fourBar.setPosition(-1);
         if(gamepad2.dpad_up){
             fourBar.setPosition(1);
-        }
+        }*/
 
         if(gamepad2.dpad_down){ }
 
@@ -88,7 +89,7 @@ public class Telop_RRTest extends OpMode {
         telemetry.addData("x",poseEstimate.getX());
         telemetry.addData("y",poseEstimate.getY());
         telemetry.addData("heading", poseEstimate.getHeading());
-        telemetry.addData("4B position: ",fourBar.getPosition());
+        //telemetry.addData("4B position: ",fourBar.getPosition());
         for (DcMotor motor : mecaDrive.getMotors()){
             telemetry.addData("Motor Position (in)", motor.getCurrentPosition()/mecaDrive.getTicks()*4*Math.PI);
         }

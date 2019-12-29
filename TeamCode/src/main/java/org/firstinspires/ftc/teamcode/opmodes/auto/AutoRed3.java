@@ -25,7 +25,7 @@ public class AutoRed3 extends LinearOpMode {
     private CameraVuforia cameraVuforia;
     private boolean hooked = false;
     private boolean stone = false;
-    //private Hook hook;
+    private Hook hook;
     //private FourBar fourbar;
     //private Intake intake;
 
@@ -35,7 +35,7 @@ public class AutoRed3 extends LinearOpMode {
         mecaDrive = new MecaDriveMain(hardwareMap);
         //camera = new Camera(hardwareMap);
         cameraVuforia = new CameraVuforia(hardwareMap);
-        //hook = new Hook(hardwareMap);
+        hook = new Hook(hardwareMap);
         //fourbar = new FourBar(hardwareMap);
         //intake = new Intake(hardwareMap);
     }
@@ -47,12 +47,39 @@ public class AutoRed3 extends LinearOpMode {
         while(mecaDrive.getPoseEstimate().getY() > -12){
             mecaDrive.horizontal(-0.5);
             mecaDrive.updatePoseEstimate();
+            getData();
         }
         while(!cameraVuforia.isTargetVisible()){
             mecaDrive.vertical(0.2);
             cameraVuforia.loop(telemetry);
             telemetry.addData("",cameraVuforia.isTargetVisible());
-            telemetry.update();
+            getData();
+        }
+        mecaDrive.updatePoseEstimate();
+        double x = mecaDrive.getPoseEstimate().getX()-3;
+        while(mecaDrive.getPoseEstimate().getX() > x){
+            mecaDrive.vertical(-0.15);
+            mecaDrive.updatePoseEstimate();
+            getData();
+        }
+        while(mecaDrive.getPoseEstimate().getY() > -15){
+            mecaDrive.horizontal(-0.2);
+            mecaDrive.updatePoseEstimate();
+            getData();
+        }
+        hook.setState(!hook.getState());
+        hook.loop();
+        while(mecaDrive.getPoseEstimate().getY() < -10){
+            mecaDrive.horizontal(0.2);
+            mecaDrive.updatePoseEstimate();
+            telemetry.addData("Hook",true);
+            getData();
+        }
+        while(mecaDrive.getPoseEstimate().getX() > 6){
+            mecaDrive.vertical(-0.3);
+            mecaDrive.updatePoseEstimate();
+            telemetry.addData("Hook",true);
+            getData();
         }
         mecaDrive.stop();
         mecaDrive.vertical(0);
@@ -114,6 +141,11 @@ public class AutoRed3 extends LinearOpMode {
             mecaDrive.horizontalAuto(10);
         }
         stop();
+    }
+    public void getData(){
+        telemetry.addData("X",mecaDrive.getPoseEstimate().getX());
+        telemetry.addData("Y", mecaDrive.getPoseEstimate().getY());
+        telemetry.update();
     }
 
 }
