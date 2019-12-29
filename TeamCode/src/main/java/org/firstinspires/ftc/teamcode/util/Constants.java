@@ -59,10 +59,8 @@ public class Constants {
     }
 
     public class Intake{
-        public static final String LS = "leftServo";
-        public static final String RS = "rightServo";
-        public static final String LM = "leftMotor";
-        public static final String RM = "rightMotor";
+        public static final String LM = "leftMotorIntake";
+        public static final String RM = "rightMotorIntake";
     }
 
     public class Hook{

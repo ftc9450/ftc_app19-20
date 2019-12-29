@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.sensors.Gyroscope;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.util.Constants;
@@ -52,6 +53,7 @@ public class MecaDriveMain extends MecanumDrive {
         this.getDrive().getRightFront().setDirection(DcMotor.Direction.REVERSE);
         this.getDrive().getRightBack().setDirection(DcMotor.Direction.REVERSE);
         this.setLocalizer((new MecanumDrive.MecanumLocalizer(this,true)));
+        this.setPoseEstimate(new Pose2d(0,0,0));
     }
 
     @Override
@@ -103,6 +105,53 @@ public class MecaDriveMain extends MecanumDrive {
     }
     public void turn (double a){
         this.setDrivePower(new Pose2d(0,0,a));
+    }
+
+    public void verticalAuto(double t, Telemetry telemetry){
+        if(t < this.getPoseEstimate().getX()){
+            while(this.getPoseEstimate().getX() > t){
+                vertical(Math.abs(t)/t*2);
+                telemetry.addData("X",this.getPoseEstimate().getX());
+                telemetry.update();
+            }
+        }else {
+            while(this.getPoseEstimate().getX() < t){
+                vertical(Math.abs(t)/t*2);
+            }
+        }
+    }
+    public void verticalAuto(double t){
+        if(t < this.getPoseEstimate().getX()){
+            while(this.getPoseEstimate().getX() > t){
+                vertical(Math.abs(t)/t*2);
+            }
+        }else {
+            while(this.getPoseEstimate().getX() < t){
+                vertical(Math.abs(t)/t*2);
+            }
+        }
+    }
+    public void horizontalAuto(double t){
+        if(t < this.getPoseEstimate().getY()){
+            while(this.getPoseEstimate().getY() > t){
+                horizontal(Math.abs(t)/t);
+            }
+        }else {
+            while(this.getPoseEstimate().getY() < t){
+                horizontal(Math.abs(t)/t);
+            }
+        }
+    }
+    public void turnAuto(double t){
+        if(t < this.getPoseEstimate().getHeading()){
+            while(this.getPoseEstimate().getHeading() > t){
+                turn(Math.abs(t)/t);
+            }
+        }else {
+            while(this.getPoseEstimate().getHeading() < t){
+                turn(Math.abs(t)/t);
+            }
+        }
     }
 
     public void fullMovement(double y, double x){

@@ -22,6 +22,7 @@ public class DrivePowerTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         beginning();
+        waitForStart();
         while (mecaDrive.getPoseEstimate().getX()<5){
             mecaDrive.vertical(1);
             mecaDrive.updatePoseEstimate();
