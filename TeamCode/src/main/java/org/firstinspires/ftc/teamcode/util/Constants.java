@@ -51,6 +51,11 @@ public class Constants {
         public static final String FBM = "fourBarMotor";
         public static final String CS = "clawServo";
     }
+    public class Arm{
+        public static final String MOTOR = "";
+        public static final String SERVO_GRAB = "";
+        public static final String SERVO_BACK = "";
+    }
 
     public class Bumpers{
         public static final String TSB = "touchBack";
