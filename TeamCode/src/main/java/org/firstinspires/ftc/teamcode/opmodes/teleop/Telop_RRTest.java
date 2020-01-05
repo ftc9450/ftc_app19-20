@@ -24,13 +24,15 @@ public class Telop_RRTest extends OpMode {
     //Drivetrain drivetrain;
     boolean previousHook;
 
+    boolean previousHookF;
+
     @Override
     public void init() {
 
         mecaDrive = new MecaDrive(hardwareMap); //TODO: put in parameters
         //fourBar = new FourBar(hardwareMap);
         //intake = new Intake(hardwareMap);
-        hook = new Hook(hardwareMap); previousHook = hook.getState();
+        hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound();
         //drivetrain = new Drivetrain(hardwareMap);
 
         subsystemManager = new SubsystemManager();
@@ -66,6 +68,9 @@ public class Telop_RRTest extends OpMode {
         if (gamepad1.b && previousHook == hook.getState()) { //toggles hook
             hook.setState(!hook.getState());
         }else if(!gamepad1.b){ previousHook = hook.getState(); }
+        if (gamepad1.a && previousHookF == hook.getStateFound()) { //toggles hook
+            hook.setStateFound(!hook.getStateFound());
+        }else if(!gamepad1.a){ previousHookF = hook.getStateFound(); }
 
         if (gamepad2.left_bumper) { }
 

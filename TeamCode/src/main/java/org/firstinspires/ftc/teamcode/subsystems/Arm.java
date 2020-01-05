@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -13,6 +14,9 @@ public class Arm extends Subsystem {
     private Servo servoGrab;
     private Servo servoBack;
 
+    private boolean backState = false;
+    private boolean grabState = false;
+
     private double assumePowerE;
     private double assumePowerR;
 
@@ -21,7 +25,6 @@ public class Arm extends Subsystem {
     private double limitED = -10000;
     private double limitRD = -10000;
 
-    private boolean grabState = false;
     public Arm(HardwareMap map) {
         motorExtend = map.dcMotor.get(Constants.Arm.MOTOR_EXTEND);
         motorRotate = map.dcMotor.get(Constants.Arm.MOTOR_ROTATE);
@@ -31,6 +34,8 @@ public class Arm extends Subsystem {
         motorExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRotate.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        motorExtend.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
@@ -54,9 +59,8 @@ public class Arm extends Subsystem {
         if(grabState){
             servoGrab.setPosition(Servo.MAX_POSITION);
         }else{
-            servoGrab.setPosition(Servo.MIN_POSITION);
+            servoGrab.setPosition(0.6);
         }
-        
 
     }
     public void setMotorPowerE(double a){
@@ -65,11 +69,13 @@ public class Arm extends Subsystem {
     public void setMotorPowerR(double a){
         assumePowerR = a;
     }
-
-    public void setGrabState(boolean a){
-        grabState = a;
+    public void setGrabState(){
+        grabState = !grabState;
     }
-    public boolean getGrabState(){
-        return grabState;
+    public void setBackState(){
+        backState = !backState;
+    }
+    public void setServoBack(double a){
+        servoBack.setPosition(a);
     }
 }

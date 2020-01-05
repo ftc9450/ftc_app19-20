@@ -3,34 +3,36 @@ package org.firstinspires.ftc.teamcode.opmodes.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
-import org.firstinspires.ftc.teamcode.subsystems.Hook;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
 import org.firstinspires.ftc.teamcode.util.Vector2D;
+import org.firstinspires.ftc.teamcode.subsystems.Hook;
 
-@TeleOp(name = "Manuel", group = "TeleOps")
-public class Telop_v1 extends OpMode {
+@TeleOp(name = "ManuelMain", group = "TeleOps")
+public class Telop_v1_Main extends OpMode {
 
     SubsystemManager subsystemManager;
     //MecaDrive mecaDrive;
-    Intake intake;
-    FourBar fourBar;
-    //Hook hook;
+    Arm arm;
+    Hook hook;
     Drivetrain drivetrain;
+
+
+    boolean previousHook;
+    boolean previousHookF;
 
     @Override
     public void init() {
 
-        //mecaDrive = new MecaDrive(); //TODO: put in parameters
-        fourBar = new FourBar(hardwareMap);
-        intake = new Intake(hardwareMap);
-        //hook = new Hook(hardwareMap);
+        //mecaDrive = new MecaDrive(); //TODO: put in parameters]
+        hook = new Hook(hardwareMap); previousHook = hook.getState(); previousHookF = hook.getStateFound();
         drivetrain = new Drivetrain(hardwareMap);
-
+        arm = new Arm(hardwareMap);
         subsystemManager = new SubsystemManager();
-        subsystemManager = subsystemManager.add(fourBar).add(intake).add(drivetrain);
+        subsystemManager = subsystemManager.add(drivetrain).add(arm).add(hook);
     }
 
     public void loop(){
@@ -49,25 +51,21 @@ public class Telop_v1 extends OpMode {
         drivetrain.setPower(driveSignal);
 
 
-        if (gamepad1.a) {//toggles intake
-            intake.setState(!intake.getState());
-        }
 
-        /*if (gamepad2.b) { //toggles hook
+        if (gamepad1.b && previousHook == hook.getState()) { //toggles hook
             hook.setState(!hook.getState());
-        }*/
+        }else if(!gamepad1.b){ previousHook = hook.getState(); }
 
-        if (gamepad2.left_bumper) { }
+        if (gamepad1.a && previousHookF == hook.getStateFound()) { //toggles hook
+            hook.setStateFound(!hook.getStateFound());
+        }else if(!gamepad1.a){ previousHookF = hook.getStateFound(); }
 
-        if(gamepad2.x){
-            fourBar.setClawState(!fourBar.getClawState());
-        }
-        //control fourbar position
-        if(gamepad2.dpad_right){ }
-            fourBar.setPosition(-1);
-        if(gamepad2.dpad_up){
-            fourBar.setPosition(1);
-        }
+
+        arm.setServoBack(gamepad2.right_trigger);
+        arm.setMotorPowerE(gamepad2.left_stick_y*0.5);
+        arm.setMotorPowerR(gamepad2.right_stick_y*0.5);
+
+
 
 
         if(gamepad2.dpad_down){ }

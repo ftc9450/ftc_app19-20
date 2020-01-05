@@ -52,10 +52,10 @@ public class Constants {
         public static final String CS = "clawServo";
     }
     public class Arm{
-        public static final String MOTOR_EXTEND = "";
-        public static final String MOTOR_ROTATE = "";
-        public static final String SERVO_GRAB = "";
-        public static final String SERVO_BACK = "";
+        public static final String MOTOR_EXTEND = "armExtend";
+        public static final String MOTOR_ROTATE = "armRotate";
+        public static final String SERVO_GRAB = "grabber";
+        public static final String SERVO_BACK = "armBackServo";
     }
 
     public class Bumpers{
@@ -71,6 +71,7 @@ public class Constants {
 
     public class Hook{
         public static final String SERVO = "hookServo";
+        public static final String FOUND_SERVO = "foundServo";
     }
 
     public class MotionTracker{
