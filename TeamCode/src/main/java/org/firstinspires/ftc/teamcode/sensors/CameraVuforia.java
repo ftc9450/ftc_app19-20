@@ -127,7 +127,7 @@ public class CameraVuforia {
 
         // For convenience, gather together all the trackable objects in one easily-iterable collection */
         allTrackables = new ArrayList<VuforiaTrackable>();
-        allTrackables.addAll(targetsSkyStone);
+        allTrackables.add(stoneTarget);
 
         /**
          * In order for localization to work, we need to tell the system where each target is on the field, and
@@ -282,7 +282,7 @@ public class CameraVuforia {
             }
         }
         // Provide feedback as to where the robot is located (if we know).
-        String positionSkystone = "";
+        /*String positionSkystone = "";
         if (targetVisible) {
             // express position (translation) of robot in inches.
             VectorF translation = lastLocation.getTranslation();
@@ -302,8 +302,8 @@ public class CameraVuforia {
         else {
             positionSkystone = "right";
             telemetry.addData("Visible Target", "none");
-        }
-        telemetry.addData("Skystone Position", positionSkystone);
+        }*/
+        //telemetry.addData("Skystone Position", positionSkystone);
         telemetry.update();
     }
 
