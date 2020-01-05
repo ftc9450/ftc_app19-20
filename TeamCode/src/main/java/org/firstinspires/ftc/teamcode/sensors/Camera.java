@@ -38,14 +38,17 @@ public class Camera {
         camera.openCameraDevice();
         skystoneDetector = new SkystoneDetector();
         stoneDetector = new StoneDetector();
-        camera.setPipeline(skystoneDetector);
+        /*camera.setPipeline(skystoneDetector);
         pipeline = Pipeline.SKYSTONE;
 
         skystoneDetector.useDefaults();
         skystoneDetector.areaScoringMethod = DogeCV.AreaScoringMethod.PERFECT_AREA;
         skystoneDetector.maxAreaScorer.weight = 0.005;
         skystoneDetector.ratioScorer.weight = 5;
-        skystoneDetector.ratioScorer.perfectRatio = 1.0;
+        skystoneDetector.ratioScorer.perfectRatio = 1.0;*/
+
+        camera.setPipeline(stoneDetector);
+        pipeline = Pipeline.STONE;
 
         stoneDetector.useDefaults();
         stoneDetector.areaScoringMethod = DogeCV.AreaScoringMethod.PERFECT_AREA;
@@ -83,7 +86,7 @@ public class Camera {
                 skyPoint = skystoneDetector.getScreenPosition();
             }
         }else{
-            if(isDetected()){
+            if(isDetected() && stoneDetector.foundRectangles()!=null && stoneDetector.foundRectangles()!=null){
                 stoneRects = stoneDetector.foundRectangles();
                 rectCenterWidth = stoneRects.get(0).width/2;
                 stonePoints = stoneDetector.foundScreenPositions();
