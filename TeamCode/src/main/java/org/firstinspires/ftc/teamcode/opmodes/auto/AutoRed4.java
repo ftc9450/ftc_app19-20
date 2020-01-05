@@ -20,8 +20,6 @@ public class AutoRed4 extends LinearOpMode {
 
     private MecaDriveMain mecaDrive;
     private Camera camera;
-    private boolean hooked = false;
-    private boolean stone = false;
     private Hook hook;
     private double speed = 0.5;
     private double[] targets = {};

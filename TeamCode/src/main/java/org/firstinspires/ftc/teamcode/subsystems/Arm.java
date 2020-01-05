@@ -56,6 +56,7 @@ public class Arm extends Subsystem {
         }else{
             servoGrab.setPosition(Servo.MIN_POSITION);
         }
+        
 
     }
     public void setMotorPowerE(double a){
