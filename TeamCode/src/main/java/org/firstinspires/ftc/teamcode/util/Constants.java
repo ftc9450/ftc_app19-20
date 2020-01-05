@@ -52,7 +52,8 @@ public class Constants {
         public static final String CS = "clawServo";
     }
     public class Arm{
-        public static final String MOTOR = "";
+        public static final String MOTOR_EXTEND = "";
+        public static final String MOTOR_ROTATE = "";
         public static final String SERVO_GRAB = "";
         public static final String SERVO_BACK = "";
     }
