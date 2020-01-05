@@ -68,6 +68,14 @@ public class Telop_v1 extends OpMode {
         if(gamepad2.dpad_up){
             fourBar.setPosition(1);
         }
+        if(gamepad1.dpad_down){
+            intake.setRightServo(-1);
+        }
+        else if(gamepad1.dpad_up){
+            intake.setRightServo(1);
+        }else{
+            intake.setRightServo(0);
+        }
 
 
         if(gamepad2.dpad_down){ }

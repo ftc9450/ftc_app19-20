@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.util.Constants;
 
@@ -12,6 +13,7 @@ public class Intake extends Subsystem {
 
     private DcMotor leftMotor;
     private DcMotor rightMotor;
+    private Servo rightServo;
 
 
     public Intake(HardwareMap map) {
@@ -19,6 +21,7 @@ public class Intake extends Subsystem {
 
         leftMotor = map.dcMotor.get(Constants.Intake.LM);
         rightMotor = map.dcMotor.get(Constants.Intake.RM);
+        rightServo = map.servo.get(Constants.Intake.RS);
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
@@ -46,4 +49,8 @@ public class Intake extends Subsystem {
         this.receive = receive;
     }
     public boolean getState() {return receive;}
+
+    public void setRightServo(double a){
+        rightServo.setPosition(a);
+    }
 }

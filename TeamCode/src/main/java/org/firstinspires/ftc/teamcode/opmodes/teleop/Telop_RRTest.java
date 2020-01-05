@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.sensors.Camera;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
@@ -22,6 +23,7 @@ public class Telop_RRTest extends OpMode {
     FourBar fourBar;
     Hook hook;
     //Drivetrain drivetrain;
+    private Camera camera;
     boolean previousHook;
 
     boolean previousHookF;
@@ -34,6 +36,8 @@ public class Telop_RRTest extends OpMode {
         //intake = new Intake(hardwareMap);
         hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound();
         //drivetrain = new Drivetrain(hardwareMap);
+
+        camera = new Camera(hardwareMap);
 
         subsystemManager = new SubsystemManager();
         subsystemManager = subsystemManager.add(hook);//.add(fourBar).add(intake)
@@ -94,9 +98,10 @@ public class Telop_RRTest extends OpMode {
         telemetry.addData("x",poseEstimate.getX());
         telemetry.addData("y",poseEstimate.getY());
         telemetry.addData("heading", poseEstimate.getHeading());
+        telemetry.addData("Camera",camera.isDetected());
         //telemetry.addData("4B position: ",fourBar.getPosition());
         for (DcMotor motor : mecaDrive.getMotors()){
-            telemetry.addData("Motor Position (in)", motor.getCurrentPosition()/mecaDrive.getTicks()*4*Math.PI);
+            telemetry.addData("Motor Position", motor.getCurrentPosition());
         }
         telemetry.update();
     }

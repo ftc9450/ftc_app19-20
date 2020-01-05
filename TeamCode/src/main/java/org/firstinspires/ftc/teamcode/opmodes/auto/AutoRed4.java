@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
 import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
 import org.firstinspires.ftc.teamcode.sensors.Bumpers;
-import org.firstinspires.ftc.teamcode.sensors.Camera;
+import org.firstinspires.ftc.teamcode.sensors.CameraVuforia;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -19,10 +19,10 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 public class AutoRed4 extends LinearOpMode {
 
     private MecaDriveMain mecaDrive;
-    private Camera camera;
     private Hook hook;
+    private CameraVuforia cameraVuforia;
     private double speed = 0.5;
-    private double[] targets = {};
+    private double[] targets = {745,590};
     //private FourBar fourbar;
     //private Intake intake;
 
@@ -30,7 +30,7 @@ public class AutoRed4 extends LinearOpMode {
     public void beginning(){
         //start bot on the space closest to the center of the field
         mecaDrive = new MecaDriveMain(hardwareMap);
-        camera = new Camera(hardwareMap);
+        cameraVuforia = new CameraVuforia(hardwareMap);
         hook = new Hook(hardwareMap);
         //fourbar = new FourBar(hardwareMap);
         //intake = new Intake(hardwareMap);
@@ -46,13 +46,15 @@ public class AutoRed4 extends LinearOpMode {
     }
 
     public void mainloop(){
-        while(mecaDrive.getMotors().get(0).getCurrentPosition() > -50){
+        while(mecaDrive.getMotors().get(0).getCurrentPosition() < targets[0]+targets[1]){
             mecaDrive.horizontal(-speed);
             getData();
         }
+        mecaDrive.horizontal(0);
         while(true){}
-        /*while(camera.isDetected()){
+        /*while(!cameraVuforia.isTargetVisible()){
             mecaDrive.vertical(-speed);
+            cameraVuforia.loop();
             getData();
         }
         while(true){}
@@ -89,7 +91,7 @@ public class AutoRed4 extends LinearOpMode {
     public void getData(){
         telemetry.addData("X",mecaDrive.getPoseEstimate().getX());
         telemetry.addData("Y", mecaDrive.getPoseEstimate().getY());
-        telemetry.addData("Motor1", mecaDrive.getMotors().get(0));
+        telemetry.addData("Motor1", mecaDrive.getMotors().get(0).getCurrentPosition());
         telemetry.update();
     }
 
