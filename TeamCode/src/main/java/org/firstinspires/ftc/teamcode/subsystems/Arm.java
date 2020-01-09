@@ -12,9 +12,6 @@ public class Arm extends Subsystem {
     private DcMotor motorRotate;
 
     private Servo servoGrab;
-    private Servo servoBack;
-
-    private boolean backState = false;
     private boolean grabState = false;
 
     private double assumePowerE;
@@ -28,7 +25,6 @@ public class Arm extends Subsystem {
     public Arm(HardwareMap map) {
         motorExtend = map.dcMotor.get(Constants.Arm.MOTOR_EXTEND);
         motorRotate = map.dcMotor.get(Constants.Arm.MOTOR_ROTATE);
-        servoBack = map.servo.get(Constants.Arm.SERVO_BACK);
         servoGrab = map.servo.get(Constants.Arm.SERVO_GRAB);
         motorRotate.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -64,18 +60,15 @@ public class Arm extends Subsystem {
 
     }
     public void setMotorPowerE(double a){
-        assumePowerE = a;
+        assumePowerE = a*0.5;
     }
     public void setMotorPowerR(double a){
-        assumePowerR = a;
+        assumePowerR = a*0.5;
     }
     public void setGrabState(){
         grabState = !grabState;
     }
-    public void setBackState(){
-        backState = !backState;
-    }
-    public void setServoBack(double a){
-        servoBack.setPosition(a);
+    public boolean grabState(){
+        return grabState;
     }
 }

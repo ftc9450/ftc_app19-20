@@ -61,7 +61,6 @@ public class Telop_v1_Main extends OpMode {
         }else if(!gamepad1.a){ previousHookF = hook.getStateFound(); }
 
 
-        arm.setServoBack(gamepad2.right_trigger);
         arm.setMotorPowerE(gamepad2.left_stick_y*0.5);
         arm.setMotorPowerR(gamepad2.right_stick_y*0.5);
 

@@ -6,9 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.sensors.Camera;
-import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
-import org.firstinspires.ftc.teamcode.subsystems.Hook;
+import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
 import org.firstinspires.ftc.teamcode.util.Vector2D;
@@ -21,12 +20,14 @@ public class Telop_RRTest extends OpMode {
     MecaDrive mecaDrive;
     Intake intake;
     FourBar fourBar;
-    Hook hook;
+    //Hook hook;
+    Arm arm;
     //Drivetrain drivetrain;
     private Camera camera;
     boolean previousHook;
 
     boolean previousHookF;
+    boolean previousGrab;
 
     @Override
     public void init() {
@@ -34,13 +35,14 @@ public class Telop_RRTest extends OpMode {
         mecaDrive = new MecaDrive(hardwareMap); //TODO: put in parameters
         //fourBar = new FourBar(hardwareMap);
         //intake = new Intake(hardwareMap);
-        hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound();
+        //hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound();
+        arm = new Arm(hardwareMap); previousGrab = arm.grabState();
         //drivetrain = new Drivetrain(hardwareMap);
 
         camera = new Camera(hardwareMap);
 
         subsystemManager = new SubsystemManager();
-        subsystemManager = subsystemManager.add(hook);//.add(fourBar).add(intake)
+        subsystemManager = subsystemManager.add(arm);//.add(fourBar).add(intake)
     }
 
     public void loop(){
@@ -64,19 +66,23 @@ public class Telop_RRTest extends OpMode {
         }
 
 
+        arm.setMotorPowerE(gamepad2.left_stick_y*0.5);
+        arm.setMotorPowerR(gamepad2.right_stick_y*0.5);
+        if (gamepad2.a && previousGrab == arm.grabState()) { //toggles hook
+            arm.setGrabState();
+        }else if(!gamepad2.a){ previousGrab = arm.grabState(); }
+
 
         /*if (gamepad1.a) {//toggles intake
             intake.setState(!intake.getState());
         }*/
 
-        if (gamepad1.b && previousHook == hook.getState()) { //toggles hook
+        /*if (gamepad1.b && previousHook == hook.getState()) { //toggles hook
             hook.setState(!hook.getState());
         }else if(!gamepad1.b){ previousHook = hook.getState(); }
         if (gamepad1.a && previousHookF == hook.getStateFound()) { //toggles hook
             hook.setStateFound(!hook.getStateFound());
-        }else if(!gamepad1.a){ previousHookF = hook.getStateFound(); }
-
-        if (gamepad2.left_bumper) { }
+        }else if(!gamepad1.a){ previousHookF = hook.getStateFound(); }*/
 
         /*if(gamepad2.x){
             fourBar.setClawState(!fourBar.getClawState());

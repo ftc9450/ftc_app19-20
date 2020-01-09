@@ -55,7 +55,6 @@ public class Constants {
         public static final String MOTOR_EXTEND = "armExtend";
         public static final String MOTOR_ROTATE = "armRotate";
         public static final String SERVO_GRAB = "grabber";
-        public static final String SERVO_BACK = "armBackServo";
     }
 
     public class Bumpers{
