@@ -31,6 +31,7 @@ public class Intake extends Subsystem {
         rightServo = map.servo.get(Constants.Intake.RS);
         leftServo = map.servo.get(Constants.Intake.LS);
         //rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightServo.setDirection(Servo.Direction.REVERSE);
     }
 
     @Override
@@ -43,10 +44,10 @@ public class Intake extends Subsystem {
         if(receive) {
             receive();
         }else{ off();}
-        if(servoOpen){
-            open();
-        }else{
+        if(!servoOpen){
             close();
+        }else{
+            open();
         }
     }
 
@@ -54,13 +55,20 @@ public class Intake extends Subsystem {
         leftMotor.setPower(1);
         rightMotor.setPower(-1);
     }
+    public void remove(){
+        leftMotor.setPower(-1);
+        rightMotor.setPower(1);
+    }
     public void off(){
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
     public void open(){
-        leftServo.setPosition(Servo.MIN_POSITION);
-        rightServo.setPosition(Servo.MIN_POSITION);
+        /*leftServo.setPosition(Servo.MIN_POSITION);
+        rightServo.setPosition(Servo.MIN_POSITION);*/
+        leftServo.close();
+        rightServo.close();
+        leftServo.getController().pwmDisable();
     }
     public void close(){
         leftServo.setPosition(Servo.MAX_POSITION);

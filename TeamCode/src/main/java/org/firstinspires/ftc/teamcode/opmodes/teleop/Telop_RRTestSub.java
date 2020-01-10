@@ -108,6 +108,8 @@ public class Telop_RRTestSub extends OpMode {
         telemetry.addData("InServo", intake.isServoOpen());
         telemetry.addData("Found Hook",hook.getStateFound());
         telemetry.addData("Previ Found",previousHookF);
+        telemetry.addData("Previ Claw",previousClaw);
+        telemetry.addData("Claw",fourBar.getClawState());
         for (DcMotor motor : mecaDrive.getMotors()){
             telemetry.addData("Motor Position", motor.getCurrentPosition());
         }
