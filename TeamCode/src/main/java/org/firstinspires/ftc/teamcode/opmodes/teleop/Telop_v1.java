@@ -49,9 +49,9 @@ public class Telop_v1 extends OpMode {
         drivetrain.setPower(driveSignal);
 
 
-        if (gamepad1.a) {//toggles intake
+        /*if (gamepad1.a) {//toggles intake
             intake.setState(!intake.getState());
-        }
+        }*/
 
         /*if (gamepad2.b) { //toggles hook
             hook.setState(!hook.getState());

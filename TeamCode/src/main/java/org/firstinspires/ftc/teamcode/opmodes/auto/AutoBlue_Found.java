@@ -1,28 +1,20 @@
 package org.firstinspires.ftc.teamcode.opmodes.auto;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
-import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
 import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
-import org.firstinspires.ftc.teamcode.sensors.Bumpers;
 import org.firstinspires.ftc.teamcode.sensors.CameraVuforia;
-import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.util.Constants;
 
-@Autonomous(name = "AutoRed_Skystone", group = "Auto")
-public class AutoRed4 extends LinearOpMode {
+@Autonomous(name = "AutoBlue_Found", group = "Auto")
+public class AutoBlue_Found extends LinearOpMode {
 
     private MecaDriveMain mecaDrive;
     private Hook hook;
     private CameraVuforia cameraVuforia;
     private double speed = 0.5;
-    private double[] targets = {745,590,750,200};
+    private double[] targets = {700,-600,-1900,0};
     //private FourBar fourbar;
     //private Intake intake;
 
@@ -50,31 +42,25 @@ public class AutoRed4 extends LinearOpMode {
          * TODO: Change horizontal values to negatives for blue side.
          */
         while(mecaDrive.getWheelPositions().get(0) < targets[0]){
-            mecaDrive.horizontal(-speed);
-        }
-        double finalmove = mecaDrive.getWheelPositions().get(0)+targets[2];
-        while(!cameraVuforia.isTargetVisible()){
-            mecaDrive.vertical(-speed);
-            cameraVuforia.loop(telemetry);
-        }
-        double lastPos = mecaDrive.getWheelPositions().get(0);
-        double nextPos = mecaDrive.getWheelPositions().get(0)+targets[1];
-        while(mecaDrive.getWheelPositions().get(0) < nextPos){
-            mecaDrive.horizontal(-speed);
-        }
-        hook.setState(false);
-        hook.loop();
-        while(mecaDrive.getWheelPositions().get(0) > lastPos){
-            mecaDrive.horizontal(speed);
-        }
-        mecaDrive.horizontal(0);
-        while(mecaDrive.getWheelPositions().get(0) < finalmove){
             mecaDrive.vertical(speed);
         }
-        double rotateticks = mecaDrive.getWheelPositions().get(0)+targets[3];
-        while(mecaDrive.getWheelPositions().get(0) > rotateticks){
-            mecaDrive.turn(speed);
+        double backmovement = mecaDrive.getWheelPositions().get(0);
+        while(mecaDrive.getWheelPositions().get(0) > targets[1]){
+            mecaDrive.horizontal(speed);
         }
+        hook.setStateFound(true);
+        hook.loop();
+        while(mecaDrive.getWheelPositions().get(0) < backmovement){
+            mecaDrive.horizontal(-speed);
+        }
+        hook.setStateFound(false);
+        hook.loop();
+        while(mecaDrive.getWheelPositions().get(0) > targets[2]){
+            mecaDrive.vertical(-speed);
+        }
+        mecaDrive.horizontal(0);
+
+
     }
 
     public void endMovement(){

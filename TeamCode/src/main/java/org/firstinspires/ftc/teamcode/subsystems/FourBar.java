@@ -29,7 +29,7 @@ public class FourBar extends Subsystem {
 
     @Override
     public void loop() {
-        if(clawState){ clawServo.setPosition(Servo.MAX_POSITION); }
+        if(clawState){ clawServo.setPosition(0.4); }
         else{ clawServo.setPosition(Servo.MIN_POSITION);}
         //move
     }

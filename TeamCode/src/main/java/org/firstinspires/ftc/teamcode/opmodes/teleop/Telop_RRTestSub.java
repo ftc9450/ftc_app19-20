@@ -25,7 +25,7 @@ public class Telop_RRTestSub extends OpMode {
 
     boolean previousHookF;
     boolean previousClaw;
-    boolean previousIntake;
+    int previousIntake;
     boolean previousIntakeServos;
 
     boolean fbBuffer;
@@ -49,13 +49,23 @@ public class Telop_RRTestSub extends OpMode {
         if(gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0){
             mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y);
         }else{
-            mecaDrive.turn(gamepad1.right_stick_y);
+            mecaDrive.turn(gamepad1.right_stick_x);
         }
 
         //intake controls
-        if (gamepad2.a && previousIntake == intake.getState()) {//toggles intake
-            intake.setState(!intake.getState());
-        }else if(!gamepad2.a){
+        if (gamepad2.a && previousIntake == intake.getState() && !gamepad2.y) {//toggles intake
+            if(intake.getState() !=0){
+                intake.setState(0);
+            }else{
+                intake.setState(-1);
+            }
+        }else if(gamepad2.y && previousIntake == intake.getState() && !gamepad2.a){
+            if(intake.getState() != 1){
+                intake.setState(1);
+            }else{
+                intake.setState(-1);
+            }
+        } else if(!gamepad2.a && !gamepad2.y){
             previousIntake = intake.getState();
         }
         if (gamepad2.b && previousIntakeServos == intake.isServoOpen()) {//toggles intake

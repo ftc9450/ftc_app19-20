@@ -96,13 +96,13 @@ public class MecaDrive extends MecanumDrive {
     }
 
     public void horizontal(double y){
-        this.setDrivePower(new Pose2d(0,y,0));
+        this.setDrivePower(new Pose2d(0,-y*0.35,0));
     }
     public void vertical(double x){
-        this.setDrivePower(new Pose2d(x,0,0));
+        this.setDrivePower(new Pose2d(-x*0.35,0,0));
     }
     public void turn (double a){
-        this.setDrivePower(new Pose2d(0,0,a));
+        this.setDrivePower(new Pose2d(0,0,-a*0.2));
     }
 
 

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
 public class Intake extends Subsystem {
-    private boolean receive;
+    private int receive;
     private boolean servoOpen;
 
     private DcMotor leftMotor;
@@ -19,7 +19,7 @@ public class Intake extends Subsystem {
 
 
     public Intake(HardwareMap map) {
-        receive = false;
+        receive = -1;
         servoOpen = true;
 
         leftMotor = map.dcMotor.get(Constants.Intake.LM);
@@ -41,44 +41,48 @@ public class Intake extends Subsystem {
 
     @Override
     public void loop() {
-        if(receive) {
+        if(receive == 0) {
             receive();
+        }else if(receive == 1){
+            remove();
         }else{ off();}
-        if(!servoOpen){
-            close();
-        }else{
+        if(servoOpen){
             open();
+        }else{
+            close();
         }
     }
 
     public void receive(){
-        leftMotor.setPower(1);
-        rightMotor.setPower(-1);
-    }
-    public void remove(){
         leftMotor.setPower(-1);
         rightMotor.setPower(1);
+    }
+    public void remove(){
+        leftMotor.setPower(1);
+        rightMotor.setPower(-1);
     }
     public void off(){
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
     public void open(){
-        /*leftServo.setPosition(Servo.MIN_POSITION);
-        rightServo.setPosition(Servo.MIN_POSITION);*/
-        leftServo.close();
-        rightServo.close();
-        leftServo.getController().pwmDisable();
+        leftServo.setPosition(0.2);
+        rightServo.setPosition(0.2);
     }
     public void close(){
-        leftServo.setPosition(Servo.MAX_POSITION);
-        rightServo.setPosition(Servo.MAX_POSITION);
+        leftServo.setPosition(0.8);
+        rightServo.setPosition(0.8);
+
+        /*leftServo.getController().pwmDisable();
+        rightServo.getController().pwmDisable();
+        leftServo.getController().pwmEnable();
+        rightServo.getController().pwmEnable();*/
     }
 
-    public void setState(boolean receive){
+    public void setState(int receive){
         this.receive = receive;
     }
-    public boolean getState() {return receive;}
+    public int getState() {return receive;}
 
     public void setRightServo(double a){
         rightServo.setPosition(a);
