@@ -12,7 +12,6 @@ public class AutoBlue_Found extends LinearOpMode {
 
     private MecaDriveMain mecaDrive;
     private Hook hook;
-    private CameraVuforia cameraVuforia;
     private double speed = 0.5;
     private double[] targets = {700,-600,-1900,0};
     //private FourBar fourbar;
@@ -22,7 +21,6 @@ public class AutoBlue_Found extends LinearOpMode {
     public void beginning(){
         //start bot on the space closest to the center of the field
         mecaDrive = new MecaDriveMain(hardwareMap);
-        cameraVuforia = new CameraVuforia(hardwareMap);
         hook = new Hook(hardwareMap);
         //fourbar = new FourBar(hardwareMap);
         //intake = new Intake(hardwareMap);

@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
 import org.firstinspires.ftc.teamcode.sensors.CameraVuforia;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
 
-@Autonomous(name = "AutoBlue_Skystone", group = "Auto")
+@Autonomous(name = "Not Good", group = "Auto")
 public class AutoBlue4 extends LinearOpMode {
 
     private MecaDriveMain mecaDrive;
@@ -45,10 +45,10 @@ public class AutoBlue4 extends LinearOpMode {
             mecaDrive.horizontal(speed);
         }
         double finalmove = mecaDrive.getWheelPositions().get(0)+targets[2];
-        while(!cameraVuforia.isTargetVisible()){
+        /*while(!cameraVuforia.isTargetVisible()){
             mecaDrive.vertical(-speed);
             cameraVuforia.loop(telemetry);
-        }
+        }*/
         double lastPos = mecaDrive.getWheelPositions().get(0);
         double nextPos = mecaDrive.getWheelPositions().get(0)-targets[1];
         while(mecaDrive.getWheelPositions().get(0) > nextPos){

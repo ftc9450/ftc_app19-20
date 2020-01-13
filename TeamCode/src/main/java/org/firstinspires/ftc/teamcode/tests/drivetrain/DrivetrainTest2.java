@@ -55,11 +55,8 @@ public class DrivetrainTest2 extends OpMode {//private Drivetrain drive;
 
         mecaDrive.setMotorPowers(FrontLeftVal,BackLeftVal,BackRightVal,FrontRightVal);*/
 
-        if(gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0){
-            mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y);
-        }else{
-            mecaDrive.turn(Math.tan(gamepad1.right_stick_y/gamepad1.right_stick_x));
-        }
+        //8mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y,mecaDrive.turn(Math.tan(gamepad1.right_stick_y/gamepad1.right_stick_x);
+
 
         mecaDrive.getLocalizer().update();
         Pose2d poseEstimate = mecaDrive.getLocalizer().getPoseEstimate();

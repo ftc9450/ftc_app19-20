@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.sensors.Camera;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -23,7 +22,6 @@ public class Telop_RRTest extends OpMode {
     //Hook hook;
     Arm arm;
     //Drivetrain drivetrain;
-    private Camera camera;
     boolean previousHook;
 
     boolean previousHookF;
@@ -38,8 +36,6 @@ public class Telop_RRTest extends OpMode {
         //hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound();
         arm = new Arm(hardwareMap); previousGrab = arm.grabState();
         //drivetrain = new Drivetrain(hardwareMap);
-
-        camera = new Camera(hardwareMap);
 
         subsystemManager = new SubsystemManager();
         subsystemManager = subsystemManager.add(arm);//.add(fourBar).add(intake)
@@ -59,11 +55,8 @@ public class Telop_RRTest extends OpMode {
         driveSignal[3]= v.x + v.y - z;
         for (int i = 0; i < 4; i++) driveSignal[i] *= modifier;
         drivetrain.setPower(driveSignal);*/
-        if(gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0){
-            mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y);
-        }else{
-            mecaDrive.turn(gamepad1.right_stick_y);
-        }
+            mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_y);
+
 
 
         arm.setMotorPowerE(gamepad2.left_stick_y*0.5);
@@ -104,7 +97,6 @@ public class Telop_RRTest extends OpMode {
         telemetry.addData("x",poseEstimate.getX());
         telemetry.addData("y",poseEstimate.getY());
         telemetry.addData("heading", poseEstimate.getHeading());
-        telemetry.addData("Camera",camera.isDetected());
         //telemetry.addData("4B position: ",fourBar.getPosition());
         for (DcMotor motor : mecaDrive.getMotors()){
             telemetry.addData("Motor Position", motor.getCurrentPosition());

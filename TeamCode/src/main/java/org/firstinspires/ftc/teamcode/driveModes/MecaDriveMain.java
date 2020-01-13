@@ -155,7 +155,7 @@ public class MecaDriveMain extends MecanumDrive {
     }
 
     public void fullMovement(double y, double x){
-        this.setDrivePower(new Pose2d(x,y,0));
+        this.setDrivePower(new Pose2d(-x*0.5,-y*0.5,0));
     }
     public void stop(){this.setDrivePower(new Pose2d(0,0,0));}
 }

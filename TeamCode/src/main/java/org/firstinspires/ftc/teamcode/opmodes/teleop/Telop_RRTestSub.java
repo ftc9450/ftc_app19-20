@@ -20,13 +20,13 @@ public class Telop_RRTestSub extends OpMode {
     Intake intake;
     FourBar fourBar;
     Hook hook;
-    private Camera camera;
     boolean previousHook;
 
     boolean previousHookF;
     boolean previousClaw;
     int previousIntake;
     boolean previousIntakeServos;
+    boolean speedChange;
 
     boolean fbBuffer;
 
@@ -38,7 +38,7 @@ public class Telop_RRTestSub extends OpMode {
         intake = new Intake(hardwareMap); previousIntake = intake.getState(); previousIntakeServos = intake.isServoOpen();
         hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound();
 
-        camera = new Camera(hardwareMap);
+        speedChange = true;
 
         subsystemManager = new SubsystemManager();
         subsystemManager = subsystemManager.add(fourBar).add(intake).add(hook);
@@ -46,10 +46,16 @@ public class Telop_RRTestSub extends OpMode {
 
     public void loop(){
         //drive control
-        if(gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0){
-            mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y);
-        }else{
-            mecaDrive.turn(gamepad1.right_stick_x);
+        mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
+
+        if(gamepad1.dpad_up && !gamepad1.dpad_down && speedChange){
+            speedChange = false;
+            mecaDrive.addSpeed();
+        }else if(!gamepad1.dpad_up && gamepad1.dpad_down && speedChange){
+            speedChange = false;
+            mecaDrive.minusSpeed();
+        }else if(!gamepad1.dpad_up && !gamepad1.dpad_down){
+            speedChange = true;
         }
 
         //intake controls
@@ -110,7 +116,7 @@ public class Telop_RRTestSub extends OpMode {
         telemetry.addData("x",poseEstimate.getX());
         telemetry.addData("y",poseEstimate.getY());
         telemetry.addData("heading", poseEstimate.getHeading());
-        telemetry.addData("Camera",camera.isDetected());
+        telemetry.addData("Drive Speed", mecaDrive.getSpeed());
         telemetry.addData("4B position: ",fourBar.getPosition());
         telemetry.addData("Previous Intake",previousIntake);
         telemetry.addData("Intake", intake.getState());

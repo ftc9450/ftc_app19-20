@@ -54,23 +54,23 @@ public class Intake extends Subsystem {
     }
 
     public void receive(){
-        leftMotor.setPower(-1);
-        rightMotor.setPower(1);
+        leftMotor.setPower(-0.65);
+        rightMotor.setPower(0.65);
     }
     public void remove(){
-        leftMotor.setPower(1);
-        rightMotor.setPower(-1);
+        leftMotor.setPower(0.65);
+        rightMotor.setPower(-0.65);
     }
     public void off(){
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
     public void open(){
-        leftServo.setPosition(0.2);
+        leftServo.setPosition(0.3);
         rightServo.setPosition(0.2);
     }
     public void close(){
-        leftServo.setPosition(0.8);
+        leftServo.setPosition(0.7);
         rightServo.setPosition(0.8);
 
         /*leftServo.getController().pwmDisable();

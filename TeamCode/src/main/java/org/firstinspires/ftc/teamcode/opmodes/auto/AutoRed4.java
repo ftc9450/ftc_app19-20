@@ -49,22 +49,20 @@ public class AutoRed4 extends LinearOpMode {
         /*
          * TODO: Change horizontal values to negatives for blue side.
          */
-        while(mecaDrive.getWheelPositions().get(0) < targets[0]){
+        while(mecaDrive.getWheelPositions().get(0) < targets[0]+targets[1]){
             mecaDrive.horizontal(-speed);
         }
         double finalmove = mecaDrive.getWheelPositions().get(0)+targets[2];
-        while(!cameraVuforia.isTargetVisible()){
+        /*while(!cameraVuforia.isTargetVisible()){
             mecaDrive.vertical(-speed);
             cameraVuforia.loop(telemetry);
-        }
+        }*/
         double lastPos = mecaDrive.getWheelPositions().get(0);
         double nextPos = mecaDrive.getWheelPositions().get(0)+targets[1];
-        while(mecaDrive.getWheelPositions().get(0) < nextPos){
-            mecaDrive.horizontal(-speed);
-        }
+        mecaDrive.horizontal(0);
         hook.setState(false);
         hook.loop();
-        while(mecaDrive.getWheelPositions().get(0) > lastPos){
+        while(mecaDrive.getWheelPositions().get(0) > targets[0]){
             mecaDrive.horizontal(speed);
         }
         mecaDrive.horizontal(0);

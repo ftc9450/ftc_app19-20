@@ -21,6 +21,7 @@ public class MecaDrive extends MecanumDrive {
     private List<DcMotor> motors;
     private Gyroscope imu;
     private double ticks;
+    private double speed;
 
     //TODO: Add these into Constants
     private static final MotorConfigurationType MOTOR_CONFIG =
@@ -39,7 +40,7 @@ public class MecaDrive extends MecanumDrive {
         drive = new Drivetrain(map);
         motors = Arrays.asList(drive.getLeftFront(), drive.getLeftBack(), drive.getRightBack(), drive.getRightFront());
         imu = new Gyroscope(map.get(BNO055IMU.class, "imu"));
-
+        speed = 1.5;
         ticks = 537.6;
 
         for (DcMotor motor : motors){
@@ -96,13 +97,13 @@ public class MecaDrive extends MecanumDrive {
     }
 
     public void horizontal(double y){
-        this.setDrivePower(new Pose2d(0,-y*0.35,0));
+        this.setDrivePower(new Pose2d(0,-y*0.5,0));
     }
     public void vertical(double x){
-        this.setDrivePower(new Pose2d(-x*0.35,0,0));
+        this.setDrivePower(new Pose2d(-x*0.5,0,0));
     }
     public void turn (double a){
-        this.setDrivePower(new Pose2d(0,0,-a*0.2));
+        this.setDrivePower(new Pose2d(0,0,-a*0.15));
     }
 
 
@@ -140,8 +141,17 @@ public class MecaDrive extends MecanumDrive {
         }
     }
 
-    public void fullMovement(double y, double x){
-        this.setDrivePower(new Pose2d(x,y,0));
+    public void fullMovement(double y, double x,double a){
+        this.setDrivePower(new Pose2d(-x*speed,-y*speed,-a*0.12*speed/1.5));
     }
     public void stop(){this.setDrivePower(new Pose2d(0,0,0));}
+    public void addSpeed(){
+        speed += 0.1;
+    }
+    public void minusSpeed(){
+        speed -= 0.1;
+    }
+    public double getSpeed(){
+        return speed;
+    }
 }
