@@ -31,11 +31,11 @@ public class Hook extends Subsystem {
     }
     @Override
     public void loop() {
-        if(isUp){
+        /*if(isUp){
             servo.setPosition(Servo.MAX_POSITION);
         }else{
             servo.setPosition(Servo.MIN_POSITION);
-        }
+        }*/
         if(isDownFound){
             foundServo.setPosition(/*0.3*/ 0.8);
         }else{
