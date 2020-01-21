@@ -18,30 +18,32 @@ public class Telop_RRTestSub extends OpMode {
     SubsystemManager subsystemManager;
     MecaDrive mecaDrive;
     Intake intake;
-    FourBar fourBar;
+    //FourBar fourBar;
     Hook hook;
-    boolean previousHook;
+    //boolean previousHook;
 
     boolean previousHookF;
-    boolean previousClaw;
+    //boolean previousClaw;
     int previousIntake;
-    boolean previousIntakeServos;
+    //boolean previousIntakeServos;
     boolean speedChange;
 
-    boolean fbBuffer;
+    //boolean fbBuffer;
 
     @Override
     public void init() {
 
         mecaDrive = new MecaDrive(hardwareMap); //TODO: put in parameters
-        fourBar = new FourBar(hardwareMap); previousClaw = fourBar.getClawState(); fbBuffer = true;
-        intake = new Intake(hardwareMap); previousIntake = intake.getState(); previousIntakeServos = intake.isServoOpen();
-        hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound();
+        //fourBar = new FourBar(hardwareMap); previousClaw = fourBar.getClawState(); fbBuffer = true;
+        intake = new Intake(hardwareMap); previousIntake = intake.getState();
+        hook = new Hook(hardwareMap); previousHookF = hook.getStateFound();
 
         speedChange = true;
 
         subsystemManager = new SubsystemManager();
-        subsystemManager = subsystemManager.add(fourBar).add(intake).add(hook);
+        subsystemManager = subsystemManager.add(intake);
+        subsystemManager = subsystemManager.add(hook);
+        //subsystemManager = subsystemManager.add(fourBar).add(intake).add(hook);
     }
 
     public void loop(){
@@ -74,13 +76,19 @@ public class Telop_RRTestSub extends OpMode {
         } else if(!gamepad2.a && !gamepad2.y){
             previousIntake = intake.getState();
         }
+        /*
         if (gamepad2.b && previousIntakeServos == intake.isServoOpen()) {//toggles intake
             intake.setServoOpen(!intake.isServoOpen());
         }else if(!gamepad2.b){
             previousIntakeServos = intake.isServoOpen();
         }
+        */
 
         //hook controls
+        if (gamepad1.a && previousHookF == hook.getStateFound()) { //toggles hook
+            hook.setStateFound(!hook.getStateFound());
+        }else if(!gamepad1.a){ previousHookF = hook.getStateFound(); }
+        /*
         if (gamepad1.b && previousHook == hook.getState()) { //toggles hook
             hook.setState(!hook.getState());
         }else if(!gamepad1.b){ previousHook = hook.getState(); }
@@ -94,6 +102,8 @@ public class Telop_RRTestSub extends OpMode {
         }else if(!gamepad2.x){
             previousClaw = fourBar.getClawState();
         }
+        */
+
         //control fourbar position
         /*if(gamepad2.dpad_down && fbBuffer){
             fourBar.setPosition(-1);
@@ -105,7 +115,7 @@ public class Telop_RRTestSub extends OpMode {
         }else if(!gamepad2.dpad_up && !gamepad2.dpad_down){
             fbBuffer = true;
         }*/
-        fourBar.setFbMotor(gamepad2.left_stick_y);
+        //fourBar.setFbMotor(gamepad2.left_stick_y);
 
 
         subsystemManager.loop();
@@ -117,19 +127,20 @@ public class Telop_RRTestSub extends OpMode {
         telemetry.addData("y",poseEstimate.getY());
         telemetry.addData("heading", poseEstimate.getHeading());
         telemetry.addData("Drive Speed", mecaDrive.getSpeed());
-        telemetry.addData("4B position: ",fourBar.getPosition());
+        //telemetry.addData("4B position: ",fourBar.getPosition());
         telemetry.addData("Previous Intake",previousIntake);
         telemetry.addData("Intake", intake.getState());
-        telemetry.addData("Previous InServo", previousIntakeServos);
-        telemetry.addData("InServo", intake.isServoOpen());
+        //telemetry.addData("Previous InServo", previousIntakeServos);
         telemetry.addData("Found Hook",hook.getStateFound());
-        telemetry.addData("Previ Found",previousHookF);
-        telemetry.addData("Previ Claw",previousClaw);
-        telemetry.addData("Claw",fourBar.getClawState());
+        //telemetry.addData("Previ Found",previousHookF);
+        //telemetry.addData("Previ Claw",previousClaw);
+        //telemetry.addData("Claw",fourBar.getClawState());
         for (DcMotor motor : mecaDrive.getMotors()){
             telemetry.addData("Motor Position", motor.getCurrentPosition());
         }
         telemetry.update();
+
+
     }
 
 

@@ -23,9 +23,9 @@ public class Arm extends Subsystem {
     private double limitRD = -10000;
 
     public Arm(HardwareMap map) {
-        motorExtend = map.dcMotor.get(Constants.Arm.MOTOR_EXTEND);
-        motorRotate = map.dcMotor.get(Constants.Arm.MOTOR_ROTATE);
-        servoGrab = map.servo.get(Constants.Arm.SERVO_GRAB);
+       // motorExtend = map.dcMotor.get(Constants.Arm.MOTOR_EXTEND);
+        //motorRotate = map.dcMotor.get(Constants.Arm.MOTOR_ROTATE);
+        //servoGrab = map.servo.get(Constants.Arm.SERVO_GRAB);
         motorRotate.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

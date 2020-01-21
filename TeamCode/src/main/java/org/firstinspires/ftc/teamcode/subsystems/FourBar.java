@@ -15,8 +15,8 @@ public class FourBar extends Subsystem {
 
     public FourBar(HardwareMap map) {
         position = 0;
-        fbMotor = map.dcMotor.get(Constants.FourBar.FBM);
-        clawServo = map.servo.get(Constants.FourBar.CS);
+        //fbMotor = map.dcMotor.get(Constants.FourBar.FBM);
+        //clawServo = map.servo.get(Constants.FourBar.CS);
         fbMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fbMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         reset();//keep motor in lowest position when starting the bot.

@@ -14,8 +14,8 @@ public class Intake extends Subsystem {
 
     private DcMotor leftMotor;
     private DcMotor rightMotor;
-    private Servo rightServo;
-    private Servo leftServo;
+    //private Servo rightServo;
+    //private Servo leftServo;
 
 
     public Intake(HardwareMap map) {
@@ -28,10 +28,10 @@ public class Intake extends Subsystem {
         rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightServo = map.servo.get(Constants.Intake.RS);
-        leftServo = map.servo.get(Constants.Intake.LS);
+        //rightServo = map.servo.get(Constants.Intake.RS);
+        //leftServo = map.servo.get(Constants.Intake.LS);
         //rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightServo.setDirection(Servo.Direction.REVERSE);
+        //rightServo.setDirection(Servo.Direction.REVERSE);
     }
 
     @Override
@@ -46,25 +46,26 @@ public class Intake extends Subsystem {
         }else if(receive == 1){
             remove();
         }else{ off();}
-        if(servoOpen){
-            open();
-        }else{
-            close();
-        }
+        //if(servoOpen){
+        //    open();
+        //}else{
+        //    close();
+        //}
     }
 
     public void receive(){
-        leftMotor.setPower(-0.65);
-        rightMotor.setPower(0.65);
+        leftMotor.setPower(-0.2);
+        rightMotor.setPower(0.2);
     }
     public void remove(){
-        leftMotor.setPower(0.65);
-        rightMotor.setPower(-0.65);
+        leftMotor.setPower(0.2);
+        rightMotor.setPower(-0.2);
     }
     public void off(){
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
+    /*
     public void open(){
         leftServo.setPosition(0.3);
         rightServo.setPosition(0.2);
@@ -73,18 +74,19 @@ public class Intake extends Subsystem {
         leftServo.setPosition(0.7);
         rightServo.setPosition(0.8);
 
+
         /*leftServo.getController().pwmDisable();
         rightServo.getController().pwmDisable();
         leftServo.getController().pwmEnable();
         rightServo.getController().pwmEnable();*/
-    }
+
 
     public void setState(int receive){
         this.receive = receive;
     }
     public int getState() {return receive;}
 
-    public void setRightServo(double a){
+    /*public void setRightServo(double a){
         rightServo.setPosition(a);
     }
 
@@ -94,5 +96,5 @@ public class Intake extends Subsystem {
 
     public void setServoOpen(boolean servoOpen) {
         this.servoOpen = servoOpen;
-    }
+    }*/
 }

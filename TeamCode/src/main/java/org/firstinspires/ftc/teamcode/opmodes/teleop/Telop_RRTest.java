@@ -18,14 +18,14 @@ public class Telop_RRTest extends OpMode {
     SubsystemManager subsystemManager;
     MecaDrive mecaDrive;
     Intake intake;
-    FourBar fourBar;
+    //FourBar fourBar;
     //Hook hook;
-    Arm arm;
+    //Arm arm;
     //Drivetrain drivetrain;
-    boolean previousHook;
+    //boolean previousHook;
 
-    boolean previousHookF;
-    boolean previousGrab;
+    //boolean previousHookF;
+    //boolean previousGrab;
 
     @Override
     public void init() {
@@ -34,11 +34,11 @@ public class Telop_RRTest extends OpMode {
         //fourBar = new FourBar(hardwareMap);
         //intake = new Intake(hardwareMap);
         //hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound();
-        arm = new Arm(hardwareMap); previousGrab = arm.grabState();
+        // arm = new Arm(hardwareMap); previousGrab = arm.grabState();
         //drivetrain = new Drivetrain(hardwareMap);
 
         subsystemManager = new SubsystemManager();
-        subsystemManager = subsystemManager.add(arm);//.add(fourBar).add(intake)
+        //subsystemManager = subsystemManager.add(arm);//.add(fourBar).add(intake)
     }
 
     public void loop(){
@@ -55,15 +55,15 @@ public class Telop_RRTest extends OpMode {
         driveSignal[3]= v.x + v.y - z;
         for (int i = 0; i < 4; i++) driveSignal[i] *= modifier;
         drivetrain.setPower(driveSignal);*/
-            mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_y);
-
-
-
+        mecaDrive.fullMovement(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_y);
+        /*
         arm.setMotorPowerE(gamepad2.left_stick_y*0.5);
         arm.setMotorPowerR(gamepad2.right_stick_y*0.5);
         if (gamepad2.a && previousGrab == arm.grabState()) { //toggles hook
             arm.setGrabState();
         }else if(!gamepad2.a){ previousGrab = arm.grabState(); }
+
+         */
 
 
         /*if (gamepad1.a) {//toggles intake

@@ -48,13 +48,13 @@ public class Constants {
     }
 
     public class FourBar{
-        public static final String FBM = "fourBarMotor";
-        public static final String CS = "clawServo";
+        //public static final String FBM = "fourBarMotor";
+        //public static final String CS = "clawServo";
     }
     public class Arm{
-        public static final String MOTOR_EXTEND = "armExtend";
-        public static final String MOTOR_ROTATE = "armRotate";
-        public static final String SERVO_GRAB = "grabber";
+        //public static final String MOTOR_EXTEND = "armExtend";
+        //public static final String MOTOR_ROTATE = "armRotate";
+        //public static final String SERVO_GRAB = "grabber";
     }
 
     public class Bumpers{
@@ -66,13 +66,14 @@ public class Constants {
     public class Intake{
         public static final String LM = "leftMotorIntake";
         public static final String RM = "rightMotorIntake";
-        public static final String RS = "rightServoIntake";
-        public static final String LS = "leftServoIntake";
+        //public static final String RS = "rightServoIntake";
+        //public static final String LS = "leftServoIntake";
     }
 
     public class Hook{
-        public static final String SERVO = "hookServo";
-        public static final String FOUND_SERVO = "foundServo";
+        //public static final String SERVO = "hookServo";
+        public static final String FOUND_SERVO_Left = "foundServoLeft";
+        public static final String FOUND_SERVO_Right = "foundServoRight";
     }
 
     public class MotionTracker{

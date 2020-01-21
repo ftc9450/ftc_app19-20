@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -9,13 +10,17 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 //The Servo on the side
 public class Hook extends Subsystem {
     private Servo servo;
-    private Servo foundServo;
+    //private Servo foundServoLeft;
+    private CRServo foundServoLeft;
+    private Servo foundServoRight;
     private boolean isUp;
     private boolean isDownFound;
 
     public Hook(HardwareMap map) {
-        servo = map.servo.get(Constants.Hook.SERVO);
-        foundServo = map.servo.get(Constants.Hook.FOUND_SERVO);
+        //servo = map.servo.get(Constants.Hook.SERVO);
+        //foundServoLeft = map.servo.get(Constants.Hook.FOUND_SERVO_Left);
+        foundServoLeft = map.crservo.get(Constants.Hook.FOUND_SERVO_Left);
+        foundServoRight = map.servo.get(Constants.Hook.FOUND_SERVO_Right);
         isUp = true;
         isDownFound = false;
     }
@@ -31,15 +36,25 @@ public class Hook extends Subsystem {
     }
     @Override
     public void loop() {
-        /*if(isUp){
+
+        //foundServoLeft.setPosition(Servo.MIN_POSITION);
+        //foundServoRight.setPosition(Servo.MAX_POSITION);
+        /*
+        if(isUp){
             servo.setPosition(Servo.MAX_POSITION);
         }else{
             servo.setPosition(Servo.MIN_POSITION);
         }*/
+
         if(isDownFound){
-            foundServo.setPosition(/*0.3*/ 0.8);
+            foundServoLeft.setPower(1.0);
+            //foundServoLeft.setPosition(0.8);
+            //foundServoRight.setPosition(0.8);
         }else{
-            foundServo.setPosition(Servo.MIN_POSITION);
+            foundServoLeft.setPower(0.0);
+            //foundServoLeft.setPosition(Servo.MIN_POSITION);
+            //foundServoRight.setPosition(Servo.MIN_POSITION);
         }
+
     }
 }
