@@ -72,7 +72,7 @@ public class Constants {
 
     public class Hook{
         //public static final String SERVO = "hookServo";
-        public static final String FOUND_SERVO_Left = "foundServoLeft";
+        //public static final String FOUND_SERVO_Left = "foundServoLeft";
         public static final String FOUND_SERVO_Right = "foundServoRight";
     }
 

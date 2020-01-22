@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 //The Servo on the side
 public class Hook extends Subsystem {
     private Servo servo;
-    //private Servo foundServoLeft;
-    private CRServo foundServoLeft;
+    private Servo foundServoLeft;
+    //private CRServo foundServoLeft;
     private Servo foundServoRight;
     private boolean isUp;
     private boolean isDownFound;
@@ -19,7 +19,7 @@ public class Hook extends Subsystem {
     public Hook(HardwareMap map) {
         //servo = map.servo.get(Constants.Hook.SERVO);
         //foundServoLeft = map.servo.get(Constants.Hook.FOUND_SERVO_Left);
-        foundServoLeft = map.crservo.get(Constants.Hook.FOUND_SERVO_Left);
+        //foundServoLeft = map.crservo.get(Constants.Hook.FOUND_SERVO_Left);
         foundServoRight = map.servo.get(Constants.Hook.FOUND_SERVO_Right);
         isUp = true;
         isDownFound = false;
@@ -47,13 +47,13 @@ public class Hook extends Subsystem {
         }*/
 
         if(isDownFound){
-            foundServoLeft.setPower(1.0);
+            //foundServoLeft.setPower(1.0);
             //foundServoLeft.setPosition(0.8);
-            //foundServoRight.setPosition(0.8);
+            foundServoRight.setPosition(0.8);
         }else{
-            foundServoLeft.setPower(0.0);
+            //foundServoLeft.setPower(0.0);
             //foundServoLeft.setPosition(Servo.MIN_POSITION);
-            //foundServoRight.setPosition(Servo.MIN_POSITION);
+            foundServoRight.setPosition(Servo.MIN_POSITION);
         }
 
     }
