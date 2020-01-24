@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -16,7 +17,7 @@ import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
 public class Telop_RRTest extends OpMode {
 
     SubsystemManager subsystemManager;
-    MecaDrive mecaDrive;
+    MecaDriveMain mecaDrive;
     Intake intake;
     //FourBar fourBar;
     //Hook hook;
@@ -30,7 +31,7 @@ public class Telop_RRTest extends OpMode {
     @Override
     public void init() {
 
-        mecaDrive = new MecaDrive(hardwareMap); //TODO: put in parameters
+        mecaDrive = new MecaDriveMain(hardwareMap); //TODO: put in parameters
         //fourBar = new FourBar(hardwareMap);
         //intake = new Intake(hardwareMap);
         //hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound();
