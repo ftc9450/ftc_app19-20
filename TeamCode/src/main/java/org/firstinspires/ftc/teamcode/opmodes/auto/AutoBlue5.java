@@ -40,6 +40,7 @@ public class AutoBlue5 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         beginning();
         waitForStart();
+        hook.loop();
         //for(int i = 0; i < 1;i++)
         mainloop();
         //endMovement();

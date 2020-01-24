@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.util.MotionTracker;
 
 import java.util.Arrays;
 
-@TeleOp(name = "Motort", group = "Drivetrain")
+@TeleOp(name = "ServoTest", group = "Drivetrain")
 public class ServoTest extends OpMode {
     //private Drivetrain drive;
     private MecaDrive mecaDrive;
@@ -32,12 +32,12 @@ public class ServoTest extends OpMode {
 
     @Override
     public void init() {
-        motor = hardwareMap.dcMotor.get("11");
+        servo1 = hardwareMap.servo.get("foundServoRight");
 
     }
 
     @Override
     public void loop() {
-       motor.setPower(gamepad1.left_stick_y);
+       servo1.setPosition(gamepad1.left_stick_y);
     }
 }
