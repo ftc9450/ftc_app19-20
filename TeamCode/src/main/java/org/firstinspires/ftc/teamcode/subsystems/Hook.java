@@ -53,7 +53,7 @@ public class Hook extends Subsystem {
 
         }
         if(isUp){
-            servo.setPosition(Servo.MAX_POSITION);
+            servo.setPosition(0.6);
         }else{
             servo.setPosition(Servo.MIN_POSITION);
         }

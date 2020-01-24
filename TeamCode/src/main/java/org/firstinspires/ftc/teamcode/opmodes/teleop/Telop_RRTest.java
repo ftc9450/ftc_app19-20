@@ -27,7 +27,7 @@ public class Telop_RRTest extends OpMode {
     boolean previousHook;
     boolean previousHookF;
     boolean previousRot;
-
+    int previousIntake;
     boolean speedChange;
 
     @Override
@@ -40,9 +40,9 @@ public class Telop_RRTest extends OpMode {
         hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound(); previousRot = hook.getRotState();
         // arm = new Arm(hardwareMap); previousGrab = arm.grabState();
         //drivetrain = new Drivetrain(hardwareMap);
-
+        intake = new Intake(hardwareMap); previousIntake = intake.getState();
         subsystemManager = new SubsystemManager();
-        subsystemManager = subsystemManager.add(hook);//.add(fourBar).add(intake)
+        subsystemManager = subsystemManager.add(hook).add(intake);//.add(fourBar).add(intake)
     }
 
     public void loop(){
@@ -56,19 +56,24 @@ public class Telop_RRTest extends OpMode {
         }else if(!gamepad1.dpad_up && !gamepad1.dpad_down){
             speedChange = true;
         }
-        /*
-        arm.setMotorPowerE(gamepad2.left_stick_y*0.5);
-        arm.setMotorPowerR(gamepad2.right_stick_y*0.5);
-        if (gamepad2.a && previousGrab == arm.grabState()) { //toggles hook
-            arm.setGrabState();
-        }else if(!gamepad2.a){ previousGrab = arm.grabState(); }
-
-         */
 
 
-        /*if (gamepad1.a) {//toggles intake
-            intake.setState(!intake.getState());
-        }*/
+        //intake controls
+        if (gamepad2.a && previousIntake == intake.getState() && !gamepad2.y) {//toggles intake
+            if(intake.getState() !=0){
+                intake.setState(0);
+            }else{
+                intake.setState(-1);
+            }
+        }else if(gamepad2.y && previousIntake == intake.getState() && !gamepad2.a){
+            if(intake.getState() != 1){
+                intake.setState(1);
+            }else{
+                intake.setState(-1);
+            }
+        } else if(!gamepad2.a && !gamepad2.y){
+            previousIntake = intake.getState();
+        }
 
         if (gamepad1.b && previousHook == hook.getState()) { //toggles hook
             hook.setState(!hook.getState());
