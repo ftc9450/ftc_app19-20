@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
+import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
@@ -20,6 +21,7 @@ public class Telop_RRTest extends OpMode {
     SubsystemManager subsystemManager;
     MecaDriveMain mecaDrive;
     Intake intake;
+    Grabber grabber;
     //FourBar fourBar;
     Hook hook;
     //Arm arm;
@@ -35,14 +37,16 @@ public class Telop_RRTest extends OpMode {
 
         mecaDrive = new MecaDriveMain(hardwareMap);
         speedChange = true;
+
         //fourBar = new FourBar(hardwareMap);
         //intake = new Intake(hardwareMap);
+        grabber = new Grabber(hardwareMap);
         hook = new Hook(hardwareMap); previousHook = hook.getState();  previousHookF = hook.getStateFound(); previousRot = hook.getRotState();
         // arm = new Arm(hardwareMap); previousGrab = arm.grabState();
         //drivetrain = new Drivetrain(hardwareMap);
         intake = new Intake(hardwareMap); previousIntake = intake.getState();
         subsystemManager = new SubsystemManager();
-        subsystemManager = subsystemManager.add(hook).add(intake);//.add(fourBar).add(intake)
+        subsystemManager = subsystemManager.add(hook).add(intake).add(grabber);//.add(fourBar).add(intake)
     }
 
     public void loop(){
@@ -97,7 +101,22 @@ public class Telop_RRTest extends OpMode {
             fourBar.setPosition(1);
         }*/
 
-        if(gamepad2.dpad_down){ }
+        //grabber controls
+        if (gamepad2.dpad_up){
+            grabber.setLiftState(1);
+        }else if(gamepad2.dpad_down){
+            grabber.setLiftState(0);
+        } else{
+            grabber.setLiftState(-1);
+        }
+
+        if (gamepad2.dpad_right){
+            grabber.setServoState(1);
+        }else if(gamepad2.dpad_left){
+            grabber.setServoState(0);
+        } else{
+            grabber.setServoState(-1);
+        }
 
         subsystemManager.loop();
 

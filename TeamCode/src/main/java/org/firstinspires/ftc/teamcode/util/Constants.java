@@ -70,6 +70,12 @@ public class Constants {
         //public static final String LS = "leftServoIntake";
     }
 
+    public class Grabber{
+        public static final String GR = "motorGrabber";
+        public static final String RS = "rightServoGrabber";
+        public static final String LS = "leftServoGrabber";
+    }
+
     public class Hook{
         public static final String SERVO = "hookServo";
         public static final String ROT = "rotatingServo";
