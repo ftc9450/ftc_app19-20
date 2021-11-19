@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.sensors.Gyroscope;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -22,7 +23,6 @@ public class MecaDriveMain extends MecanumDrive {
     private List<DcMotor> motors;
     private Gyroscope imu;
     private double ticks;
-
     private double speed;
 
     //TODO: Add these into Constants
@@ -169,5 +169,48 @@ public class MecaDriveMain extends MecanumDrive {
     }
     public double getSpeed(){
         return speed;
+    }
+
+    public void movementCoordinates(double x_dist, double y_dist, double radians, double seconds){ //x_dist and y_dist in meters
+        //TODO: Check if the angular velocities given to the motors is larger than the maximum speed of the motor
+        //TODO: Check If Encoders are Correct
+        if(seconds == 0){
+            for (DcMotor motor : motors){
+                motor.setPower(0);
+            }
+            return;
+        }
+        double x_velo = x_dist/seconds, y_velo = y_dist/seconds, rad_velo = radians/seconds;
+        double leftFrontAngle_velo = (x_velo + y_velo - Constants.MecaDrive.L_VALUE2*rad_velo)/Constants.MecaDrive.WHEEL_RADIUS,
+                rightFrontAngle_velo = (x_velo - y_velo + Constants.MecaDrive.L_VALUE2*rad_velo)/Constants.MecaDrive.WHEEL_RADIUS,
+                leftBackAngle_velo = (x_velo - y_velo - Constants.MecaDrive.L_VALUE2*rad_velo)/Constants.MecaDrive.WHEEL_RADIUS,
+                rightBackAngle_velo = (x_velo + y_velo + Constants.MecaDrive.L_VALUE2*rad_velo)/Constants.MecaDrive.WHEEL_RADIUS;
+        /*double leftFrontEncoderUnits = leftFrontAngle_velo*seconds/(2*Math.PI)*Constants.EncoderValue.goBuilda,
+                rightFrontEncoderUnits = rightFrontAngle_velo*seconds/(2*Math.PI)*Constants.EncoderValue.goBuilda,
+                leftBackEncoderUnits = leftBackAngle_velo*seconds/(2*Math.PI)*Constants.EncoderValue.goBuilda,
+                rightBackEncoderUnits = rightBackAngle_velo*seconds/(2*Math.PI)*Constants.EncoderValue.goBuilda;*/
+        double[] encoderUnits = {leftFrontAngle_velo*seconds/(2*Math.PI)*Constants.EncoderValue.goBuilda,
+                                    leftBackAngle_velo*seconds/(2*Math.PI)*Constants.EncoderValue.goBuilda,
+                                    rightBackAngle_velo*seconds/(2*Math.PI)*Constants.EncoderValue.goBuilda,
+                                    rightFrontAngle_velo*seconds/(2*Math.PI)*Constants.EncoderValue.goBuilda};
+
+        /*double leftFrontPower = (leftFrontAngle_velo/(2*Math.PI)*60)/Constants.MecaDrive.MAX_SPEED,
+                rightFrontPower = (rightFrontAngle_velo/(2*Math.PI)*60)/Constants.MecaDrive.MAX_SPEED,
+                leftBackPower = (leftBackAngle_velo/(2*Math.PI)*60)/Constants.MecaDrive.MAX_SPEED,
+                rightBackPower = (rightBackAngle_velo/(2*Math.PI)*60)/Constants.MecaDrive.MAX_SPEED;*/
+
+        double[] motorPowers = {(leftFrontAngle_velo/(2*Math.PI)*60)/Constants.MecaDrive.MAX_SPEED,
+                                (leftBackAngle_velo/(2*Math.PI)*60)/Constants.MecaDrive.MAX_SPEED,
+                                (rightBackAngle_velo/(2*Math.PI)*60)/Constants.MecaDrive.MAX_SPEED,
+                                (rightFrontAngle_velo/(2*Math.PI)*60)/Constants.MecaDrive.MAX_SPEED};
+        int counter = 0;
+        for(DcMotor motor : motors){
+            motor.setTargetPosition((int) (motor.getCurrentPosition()+encoderUnits[counter]));
+        }
+        counter = 0;
+        for (DcMotor motor : motors){
+            motor.setPower(motorPowers[counter]);
+            counter++;
+        }
     }
 }

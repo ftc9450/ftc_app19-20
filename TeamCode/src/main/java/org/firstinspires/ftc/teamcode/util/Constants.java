@@ -39,12 +39,14 @@ public class Constants {
         public static final double TRACK_WIDTH = 16;
         public static final double WHEEL_BASE = 10.5;
 
-        public static final double TRACK_WIDTH2 = 14;
-        public static final double WHEEL_BASE2 = 14;
+        public static final double TRACK_WIDTH2 = 14; //center of front wheel to center of back wheel same xvalue; inches
+        public static final double L_VALUE2 = (TRACK_WIDTH)*2.54/100; //this is actually 2 L since half the track width is equal to half the wheel base width
+        public static final double WHEEL_BASE2 = 14; //center of left wheel to center of right wheel same yvalue; inches
 
-
-        public static final double WHEEL_DIAMETER = 4;
+        public static final double WHEEL_DIAMETER = 4; //wheel diameter, inches
+        public static final double WHEEL_RADIUS = WHEEL_DIAMETER/2*2.54/100; //wheel radius in meters
         public static final double SPEED_MULTIPLIER = .5;
+        public static final double MAX_SPEED = 435; //rotations per minute for goBuilda 5202-0002-00014
     }
 
     public class FourBar{
@@ -100,6 +102,7 @@ public class Constants {
         private static final int neverst60 =420;
         private static final double neverst20 = 134.4;
         public static final int torqueNado = 1440;
+        public static final double goBuilda = 384.5; //maybe 383.6, https://www.gobilda.com/5202-series-yellow-jacket-planetary-gear-motor-13-7-1-ratio-435-rpm-3-3-5v-encoder/
     }
     public class Vuforia {
         public static final String KEY = "AYwm7lb/////AAAAGeQI9HT4B0R2unLNBq/DsId49BJr71nKGdfP8X8fnmtD0Jna47KLigPBytLYBjzOIl6uCfYWbIXHc3FqoabxIITohKJ4VvPispe5kGGFFJyQEIifEL1Bc511jOl00pyY2Tr/YOGwjGk7lSXQ0QrScHVaiwIOM3mUUlsv9Ethn1OCZB2AVhT91gnrUKryxBwfLCGjqpmYdWOVDsJTloDiowWMez0U42S9sILVevNguQXZqTr1uURaUx5Voy+2N6FVK5p4dvraac9+LD6YskUCLqWsK2XVruCpCsRWZxfrqylNyni2ll5AW3Mekw/hSSzfjx70eyKXyaLRiOj4UhHKCjeqWjFCePt0Vb59tyqd9KhS";
