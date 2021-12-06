@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.auto;
+package org.firstinspires.ftc.teamcode.opmodes.auto.oldAutos.ftc2019_2020;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,13 +7,14 @@ import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
 import org.firstinspires.ftc.teamcode.sensors.CameraVuforia;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
 
-@Autonomous(name = "AutoRed_Found", group = "Auto")
-public class AutoRed4_Found extends LinearOpMode {
+@Autonomous(name = "AutoRed5_Skystone", group = "Auto")
+public class AutoRed5SS extends LinearOpMode {
 
     private MecaDriveMain mecaDrive;
     private Hook hook;
+    private CameraVuforia cameraVuforia;
     private double speed = 0.5;
-    private double[] targets = {700,2000,-1900,0};
+    private double[] targets = {745,590,750,200};
     //private FourBar fourbar;
     //private Intake intake;
 
@@ -21,6 +22,7 @@ public class AutoRed4_Found extends LinearOpMode {
     public void beginning(){
         //start bot on the space closest to the center of the field
         mecaDrive = new MecaDriveMain(hardwareMap);
+        cameraVuforia = new CameraVuforia(hardwareMap);
         hook = new Hook(hardwareMap);
         //fourbar = new FourBar(hardwareMap);
         //intake = new Intake(hardwareMap);
@@ -39,29 +41,30 @@ public class AutoRed4_Found extends LinearOpMode {
         /*
          * TODO: Change horizontal values to negatives for blue side.
          */
-        while(mecaDrive.getWheelPositions().get(0) < targets[0]){
-            mecaDrive.vertical(speed);
+        while(mecaDrive.getMotors().get(0).getCurrentPosition() < targets[0]+targets[1]){
+            mecaDrive.fullMovement(-speed,0,0);
         }
-        double backmovement = mecaDrive.getWheelPositions().get(0);
-        while(mecaDrive.getWheelPositions().get(0) < targets[1]){
-            mecaDrive.horizontal(-speed);
-        }
-        hook.setStateFound(true);
-        hook.loop();
-        while(mecaDrive.getWheelPositions().get(0) > backmovement){
-            mecaDrive.horizontal(speed);
-        }
-        while(mecaDrive.getWheelPositions().get(0) > backmovement-200){
-            mecaDrive.turn(-speed);
-        }
-        hook.setStateFound(false);
-        hook.loop();
-        while(mecaDrive.getWheelPositions().get(0) > backmovement-2000){
+        double finalmove = mecaDrive.getMotors().get(0).getCurrentPosition()+targets[2];
+        /*while(!cameraVuforia.isTargetVisible()){
             mecaDrive.vertical(-speed);
+            cameraVuforia.loop(telemetry);
+        }*/
+        double lastPos = mecaDrive.getMotors().get(0).getCurrentPosition();
+        double nextPos = mecaDrive.getMotors().get(0).getCurrentPosition()+targets[1];
+        mecaDrive.horizontal(0);
+        hook.setState(false);
+        hook.loop();
+        while(mecaDrive.getMotors().get(0).getCurrentPosition() > targets[0]){
+            mecaDrive.fullMovement(speed,0,0);
         }
         mecaDrive.horizontal(0);
-
-
+        while(mecaDrive.getMotors().get(0).getCurrentPosition() > 50){
+            mecaDrive.fullMovement(0,-speed,0);
+        }
+        /*double rotateticks = mecaDrive.getMotors().get(0).getCurrentPosition()+targets[3];
+        while(mecaDrive.getMotors().get(0).getCurrentPosition() > rotateticks){
+            mecaDrive.turn(speed);
+        }*/
     }
 
     public void endMovement(){

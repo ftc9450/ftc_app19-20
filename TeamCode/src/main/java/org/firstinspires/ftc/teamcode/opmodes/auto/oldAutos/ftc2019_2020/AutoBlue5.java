@@ -1,14 +1,22 @@
-package org.firstinspires.ftc.teamcode.opmodes.auto;
+package org.firstinspires.ftc.teamcode.opmodes.auto.oldAutos.ftc2019_2020;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
 import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
+import org.firstinspires.ftc.teamcode.sensors.Bumpers;
 import org.firstinspires.ftc.teamcode.sensors.CameraVuforia;
+import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.util.Constants;
 
-@Autonomous(name = "AutoRed5_Skystone", group = "Auto")
-public class AutoRed5SS extends LinearOpMode {
+@Autonomous(name = "AutoBlue_Skystone", group = "Auto")
+public class AutoBlue5 extends LinearOpMode {
 
     private MecaDriveMain mecaDrive;
     private Hook hook;
@@ -32,6 +40,7 @@ public class AutoRed5SS extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         beginning();
         waitForStart();
+        hook.loop();
         //for(int i = 0; i < 1;i++)
         mainloop();
         //endMovement();
@@ -58,8 +67,8 @@ public class AutoRed5SS extends LinearOpMode {
             mecaDrive.fullMovement(speed,0,0);
         }
         mecaDrive.horizontal(0);
-        while(mecaDrive.getMotors().get(0).getCurrentPosition() > 50){
-            mecaDrive.fullMovement(0,-speed,0);
+        while(mecaDrive.getMotors().get(0).getCurrentPosition() < 1850){
+            mecaDrive.fullMovement(0,speed,0);
         }
         /*double rotateticks = mecaDrive.getMotors().get(0).getCurrentPosition()+targets[3];
         while(mecaDrive.getMotors().get(0).getCurrentPosition() > rotateticks){

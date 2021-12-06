@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.auto;
+package org.firstinspires.ftc.teamcode.opmodes.auto.oldAutos.ftc2019_2020;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
 import org.firstinspires.ftc.teamcode.sensors.CameraVuforia;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
 
-@Autonomous(name = "Just park Backward", group = "Auto")
-public class Backward extends LinearOpMode {
+@Autonomous(name = "Just park Left", group = "Auto")
+public class ParkRight extends LinearOpMode {
 
     private MecaDriveMain mecaDrive;
     private Hook hook;
@@ -33,8 +33,8 @@ public class Backward extends LinearOpMode {
         beginning();
         waitForStart();
         //for(int i = 0; i < 1;i++)
-        while(mecaDrive.getMotors().get(0).getCurrentPosition() > -1300){
-            mecaDrive.vertical(-speed);
+        while(mecaDrive.getWheelPositions().get(0) > -1300){
+            mecaDrive.horizontal(speed);
         }
         mecaDrive.horizontal(0);
     }

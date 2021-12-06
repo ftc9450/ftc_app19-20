@@ -24,6 +24,7 @@ public class MecaDriveMain extends MecanumDrive {
     private Gyroscope imu;
     private double ticks;
     private double speed;
+    private double x = 0,y = 0,radians = 0;
 
     //TODO: Add these into Constants
     private static final MotorConfigurationType MOTOR_CONFIG =
@@ -67,6 +68,11 @@ public class MecaDriveMain extends MecanumDrive {
             wheelPositions.add(motor.getCurrentPosition()/ticks*4*Math.PI);
         }
         return wheelPositions;
+    }
+    public void setInitialPosition(double x, double y, double radians){
+        this.x = x;
+        this.y = y;
+        this.radians = radians;
     }
 
     @Override
@@ -171,7 +177,7 @@ public class MecaDriveMain extends MecanumDrive {
         return speed;
     }
 
-    public void movementCoordinates(double x_dist, double y_dist, double radians, double seconds){ //x_dist and y_dist in meters
+    public void movementCoordinates(double x_dist, double y_dist, double radians, double seconds){ //x_dist and y_dist in meters //Maybe never do both a turn and a move
         //TODO: Check if the angular velocities given to the motors is larger than the maximum speed of the motor
         //TODO: Check If Encoders are Correct
         if(seconds == 0){
@@ -212,5 +218,20 @@ public class MecaDriveMain extends MecanumDrive {
             motor.setPower(motorPowers[counter]);
             counter++;
         }
+        this.radians += radians;
+        this.x += x_dist*Math.cos(this.radians) +y_dist*Math.sin(this.radians);
+        this.y += y_dist*Math.cos(this.radians) + x_dist*Math.sin(this.radians);
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getRadians() {
+        return radians;
     }
 }

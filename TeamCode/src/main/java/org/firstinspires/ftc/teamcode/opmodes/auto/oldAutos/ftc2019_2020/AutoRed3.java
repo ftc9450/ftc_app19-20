@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.auto.oldAutos;
+package org.firstinspires.ftc.teamcode.opmodes.auto.oldAutos.ftc2019_2020;
 
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
