@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.sensors;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.skystone.SkystoneDetector;
 import com.disnodeteam.dogecv.detectors.skystone.StoneDetector;
+//import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.opencv.core.Point;
