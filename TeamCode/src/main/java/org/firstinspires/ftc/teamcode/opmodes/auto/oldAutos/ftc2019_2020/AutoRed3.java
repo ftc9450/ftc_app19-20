@@ -1,21 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmodes.auto.oldAutos.ftc2019_2020;
 
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
-import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
 import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
-import org.firstinspires.ftc.teamcode.sensors.Bumpers;
 import org.firstinspires.ftc.teamcode.sensors.Camera;
 import org.firstinspires.ftc.teamcode.sensors.CameraVuforia;
-import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.util.Constants;
 
 @Autonomous(name = "AutoRed3", group = "Auto")
 public class AutoRed3 extends LinearOpMode {

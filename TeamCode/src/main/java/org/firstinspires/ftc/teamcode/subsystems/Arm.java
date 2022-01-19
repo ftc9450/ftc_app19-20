@@ -8,11 +8,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
 public class Arm extends Subsystem {
-    private DcMotor motorExtend;
-    private DcMotor motorRotate;
+    private DcMotor motorIntake, motorRotate, motorWheel;
 
     private Servo servoGrab;
-    private boolean grabState = false;
+    private boolean wheelState = false;
+    private int intakeState = 0;
+    private int armPosition = 0;
+    private final int ARM_MULTIPLE = 100;
 
     private double assumePowerE;
     private double assumePowerR;
@@ -23,15 +25,19 @@ public class Arm extends Subsystem {
     private double limitRD = -10000;
 
     public Arm(HardwareMap map) {
-       // motorExtend = map.dcMotor.get(Constants.Arm.MOTOR_EXTEND);
-        //motorRotate = map.dcMotor.get(Constants.Arm.MOTOR_ROTATE);
-        //servoGrab = map.servo.get(Constants.Arm.SERVO_GRAB);
+        motorIntake = map.dcMotor.get(Constants.Arm.MOTOR_INTAKE);
+        motorRotate = map.dcMotor.get(Constants.Arm.MOTOR_ROTATE);
+        motorWheel = map.dcMotor.get(Constants.Arm.MOTOR_ROTATE);
         motorRotate.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorRotate.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorIntake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        motorExtend.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorRotate.setTargetPosition(0);
+        motorRotate.setPower(0.3);
     }
 
     @Override
@@ -41,21 +47,19 @@ public class Arm extends Subsystem {
 
     @Override
     public void loop() {
-        if(motorExtend.getCurrentPosition() >= limitED && motorExtend.getCurrentPosition() <= limitEU){
-            motorExtend.setPower(assumePowerE);
+        motorRotate.setTargetPosition(armPosition*ARM_MULTIPLE);
+
+        if(wheelState){
+            motorWheel.setPower(0.3);
         }else{
-            motorExtend.setPower(0);
-        }
-        if(motorRotate.getCurrentPosition() >= limitRD && motorRotate.getCurrentPosition() <= limitRU){
-            motorRotate.setPower(assumePowerR);
-        }else{
-            motorRotate.setPower(0);
+            motorWheel.setPower(0);
         }
 
-        if(grabState){
-            servoGrab.setPosition(Servo.MAX_POSITION);
-        }else{
-            servoGrab.setPosition(0.6);
+        switch (intakeState){
+            case 1:motorIntake.setPower(0.3);break;
+            case 0:motorIntake.setPower(0);break;
+            case -1:motorIntake.setPower(-0.3);break;
+
         }
 
     }
@@ -65,10 +69,27 @@ public class Arm extends Subsystem {
     public void setMotorPowerR(double a){
         assumePowerR = a*0.5;
     }
-    public void setGrabState(){
-        grabState = !grabState;
+
+    public boolean isWheelState() {
+        return wheelState;
     }
-    public boolean grabState(){
-        return grabState;
+
+    public void setWheelState(boolean wheelState) {
+        this.wheelState = wheelState;
+    }
+
+    public void incrementArm(){
+        armPosition++;
+    }
+    public void decrementArm(){
+        armPosition--;
+    }
+
+    public void setIntakeState(int intakeState) {
+        this.intakeState = intakeState;
+    }
+
+    public int getArmPosition() {
+        return armPosition;
     }
 }

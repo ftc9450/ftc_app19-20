@@ -6,14 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
-import org.firstinspires.ftc.teamcode.subsystems.FourBar;
-import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.old.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
-import org.firstinspires.ftc.teamcode.util.Vector2D;
-import org.firstinspires.ftc.teamcode.driveModes.MecaDrive;
 
 @TeleOp(name = "MainBot", group = "TeleOps")
 public class Telop_RRTest extends OpMode {

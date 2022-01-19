@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.sensors.Camera;
 import org.firstinspires.ftc.teamcode.sensors.CameraVuforia;
 import org.firstinspires.ftc.teamcode.subsystems.FourBar;
 import org.firstinspires.ftc.teamcode.subsystems.Hook;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.old.Intake;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
 @Autonomous(name = "AutoRed2", group = "Auto")
