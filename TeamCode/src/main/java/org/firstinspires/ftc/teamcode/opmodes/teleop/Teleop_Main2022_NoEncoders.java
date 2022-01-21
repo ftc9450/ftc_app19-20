@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.driveModes.MecaDriveMain;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
 
-@TeleOp(name = "MainBot2022", group = "TeleOps")
-public class Teleop_Main2022 extends OpMode {
+@TeleOp(name = "MainBot2022_NoEncoders", group = "TeleOps")
+public class Teleop_Main2022_NoEncoders extends OpMode {
 
     MecaDriveMain mecaDrive;
     boolean speedChange,armChange;
@@ -44,7 +44,7 @@ public class Teleop_Main2022 extends OpMode {
         //Player 2
 
         //Toggles Arm Position
-        if(gamepad2.dpad_up && armChange){
+        /*if(gamepad2.dpad_up && armChange){
             armChange = false;
             arm.incrementArm();
         }else if(gamepad2.dpad_down && armChange){
@@ -52,8 +52,8 @@ public class Teleop_Main2022 extends OpMode {
             arm.decrementArm();
         }else if(!gamepad2.dpad_up && !gamepad2.dpad_down){
             armChange = true;
-        }
-        //arm.getMotorRotate().setPower(0.6*gamepad2.left_stick_y);
+        }*/
+        arm.getMotorRotate().setPower(0.6*gamepad2.left_stick_y);
 
         //Toggles Wheel Motor
         if(gamepad2.b){

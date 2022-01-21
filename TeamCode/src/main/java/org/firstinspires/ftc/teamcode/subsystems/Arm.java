@@ -14,7 +14,7 @@ public class Arm extends Subsystem {
     private boolean wheelState = false;
     private int intakeState = 0;
     private int armPosition = 0;
-    private final int ARM_MULTIPLE = 100;
+    private final int ARM_MULTIPLE = 144;
 
     private double assumePowerE;
     private double assumePowerR;
@@ -27,17 +27,18 @@ public class Arm extends Subsystem {
     public Arm(HardwareMap map) {
         motorIntake = map.dcMotor.get(Constants.Arm.MOTOR_INTAKE);
         motorRotate = map.dcMotor.get(Constants.Arm.MOTOR_ROTATE);
-        motorWheel = map.dcMotor.get(Constants.Arm.MOTOR_ROTATE);
+        motorWheel = map.dcMotor.get(Constants.Arm.MOTOR_WHEEL);
         motorRotate.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorIntake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRotate.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorWheel.setDirection(DcMotorSimple.Direction.REVERSE);
         motorIntake.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //motorRotate.setTargetPosition(0);
-        //motorRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //motorRotate.setPower(0.3);
+        motorRotate.setTargetPosition(0);
+        motorRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     @Override
@@ -47,10 +48,22 @@ public class Arm extends Subsystem {
 
     @Override
     public void loop() {
-        //motorRotate.setTargetPosition(armPosition*ARM_MULTIPLE);
+        if(motorRotate.getCurrentPosition()!=armPosition*ARM_MULTIPLE){
+            motorRotate.setTargetPosition(armPosition*ARM_MULTIPLE);
+            motorRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if(motorRotate.getCurrentPosition() < armPosition*ARM_MULTIPLE){
+                motorRotate.setPower(0.6);
+            }else{
+                motorRotate.setPower(-0.6);
+            }
+
+        }else{
+            motorRotate.setPower(0);
+        }
+
 
         if(wheelState){
-            motorWheel.setPower(0.3);
+            motorWheel.setPower(0.4);
         }else{
             motorWheel.setPower(0);
         }
