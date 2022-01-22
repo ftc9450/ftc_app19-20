@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.util;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
-import org.firstinspires.ftc.teamcode.sensors.Bumpers;
 
 /**
  * Created by dhruv on 1/22/18.
