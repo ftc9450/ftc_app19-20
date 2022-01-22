@@ -32,11 +32,11 @@ public class Arm extends Subsystem {
         motorIntake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         motorIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+
         motorRotate.setTargetPosition(0);
+        motorRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorRotate.setPower(0.3);
     }
 
