@@ -53,6 +53,7 @@ public class Teleop_Main2022 extends OpMode {
         }else if(!gamepad2.dpad_up && !gamepad2.dpad_down){
             armChange = true;
         }
+        arm.getMotorRotate().setPower(0.3*gamepad2.left_stick_y);
 
         //Toggles Wheel Motor
         if(gamepad2.b){

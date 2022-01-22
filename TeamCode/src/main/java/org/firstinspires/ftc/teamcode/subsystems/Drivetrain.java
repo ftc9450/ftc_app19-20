@@ -37,7 +37,8 @@ public class Drivetrain extends Subsystem {
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         maxPower = 1;
         this.setState(DrivetrainState.Linear);
     }

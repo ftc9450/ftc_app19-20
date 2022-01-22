@@ -35,9 +35,9 @@ public class Arm extends Subsystem {
         motorWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorIntake.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        motorRotate.setTargetPosition(0);
-        motorRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorRotate.setPower(0.3);
+        //motorRotate.setTargetPosition(0);
+        //motorRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //motorRotate.setPower(0.3);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Arm extends Subsystem {
 
     @Override
     public void loop() {
-        motorRotate.setTargetPosition(armPosition*ARM_MULTIPLE);
+        //motorRotate.setTargetPosition(armPosition*ARM_MULTIPLE);
 
         if(wheelState){
             motorWheel.setPower(0.3);
@@ -91,5 +91,9 @@ public class Arm extends Subsystem {
 
     public int getArmPosition() {
         return armPosition;
+    }
+
+    public DcMotor getMotorRotate() {
+        return motorRotate;
     }
 }
